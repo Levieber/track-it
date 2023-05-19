@@ -1,9 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@phosphor-icons/vue':
-    specifier: ^2.0.1
-    version: 2.0.1(vue@3.3.4)
   daisyui:
     specifier: ^2.51.6
     version: 2.51.6(autoprefixer@10.4.14)(postcss@8.4.23)
@@ -387,15 +384,6 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
-
-  /@phosphor-icons/vue@2.0.1(vue@3.3.4):
-    resolution: {integrity: sha512-2p2yuNnZpLknFgl/JGoJIWqoQwSBclxBikcRb7FPBhVEmPzxSoXPwhPK6SGgn9DyQnouMYK7M8LB2+csEiRS9A==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      vue: ^3.2.39
-    dependencies:
-      vue: 3.3.4
-    dev: false
 
   /@types/json-schema@7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
