@@ -42,7 +42,7 @@ export default {
     :disabled="timerRunning"
     @click="startTimer"
     type="submit"
-    class="btn-accent btn flex gap-2 text-white"
+    class="btn-accent btn flex gap-2 text-black"
   >
     <IconPlay /> Começar
   </button>
