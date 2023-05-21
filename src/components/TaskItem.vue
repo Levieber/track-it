@@ -20,6 +20,6 @@ export default {
     <strong class="break-all">
       {{ task.title || "Tarefa sem título" }}
     </strong>
-    <TaskTimer :time-in-seconds="task.time" />
+    <TaskTimer with-icon :time-in-seconds="task.time" />
   </TaskBox>
 </template>
