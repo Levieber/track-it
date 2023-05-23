@@ -14,11 +14,12 @@ export default {
   },
   computed: {
     elapsedTime() {
-      const date = new Date();
+      const TIME_INDEX_START = 11;
+      const TIME_INDEX_END = 19;
+      const date = new Date(this.timeInSeconds * 1000);
+      const timeFormatted = date.toISOString().substring(TIME_INDEX_START, TIME_INDEX_END);
 
-      date.setHours(0, 0, this.timeInSeconds, 0);
-
-      return date.toLocaleTimeString();
+      return timeFormatted;
     },
   },
   components: { IconClock },
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <strong class="text-xl flex items-center justify-center gap-1">
+  <strong class="flex items-center justify-center gap-1 text-xl">
     <IconClock v-if="withIcon" />
     {{ elapsedTime }}
   </strong>
