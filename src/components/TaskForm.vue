@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-  <form @submit.prevent class="mt-3 flex flex-wrap items-center justify-center gap-3 p-2">
+  <form @submit.prevent class="flex flex-wrap items-center justify-center gap-3">
     <input
       v-model="taskTitle"
       class="input-bordered input w-full max-w-lg"
