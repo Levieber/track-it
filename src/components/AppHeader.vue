@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <header class="flex items-center justify-between bg-sky-900 p-3">
+  <header class="flex flex-wrap items-center justify-center gap-3 bg-sky-900 p-3 sm:justify-between">
     <h1 class="text-2xl text-white">Track It</h1>
     <button class="btn border-white bg-transparent text-white" @click="toggleTheme">
       Ativar {{ darkMode ? "modo escuro" : "modo claro" }}
