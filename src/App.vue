@@ -32,13 +32,16 @@ export default {
 
 <template>
   <AppHeader />
-  <TaskForm @save-task="createTask" />
-  <ul class="flex flex-col items-center gap-3 p-5" role="list">
-    <li class="w-full max-w-5xl" v-for="task of tasks" :key="task.id">
-      <TaskItem :task="task" />
-    </li>
-    <li class="w-full max-w-5xl" v-if="isTaskListEmpty">
-      <TaskBox>Você não está muito produtivo hoje :( </TaskBox>
-    </li>
-  </ul>
+  <section class="flex flex-col gap-5 p-3">
+    <h2 class="text-center text-3xl">Suas tarefas:</h2>
+    <TaskForm @save-task="createTask" />
+    <ul class="flex flex-col items-center gap-3" role="list">
+      <li class="w-full max-w-5xl" v-for="task of tasks" :key="task.id">
+        <TaskItem :task="task" />
+      </li>
+      <li class="w-full max-w-5xl" v-if="isTaskListEmpty">
+        <TaskBox>Você não está muito produtivo hoje :( </TaskBox>
+      </li>
+    </ul>
+  </section>
 </template>
