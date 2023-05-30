@@ -39,6 +39,7 @@ export default {
     <TaskTimer :time-in-seconds="timeInSeconds" />
   </section>
   <button
+    data-cy="start-task"
     :disabled="timerRunning"
     @click="startTimer"
     type="submit"
@@ -47,6 +48,7 @@ export default {
     <IconPlay /> Começar
   </button>
   <button
+    data-cy="stop-task"
     :disabled="!timerRunning"
     @click="stopTimer"
     type="button"
