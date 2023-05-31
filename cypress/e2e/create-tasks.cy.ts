@@ -1,4 +1,4 @@
-import { Task } from "../../src/@types/Task";
+import { Task } from "@src/types/Task";
 
 describe("Create a bulk of tasks", () => {
 	it("should render the tasks properly", () => {

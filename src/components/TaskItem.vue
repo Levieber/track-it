@@ -1,6 +1,6 @@
 <script lang="ts">
 import { PropType } from "vue";
-import { Task } from "../@types/Task";
+import type { Task } from "@src/types/Task";
 import TaskTimer from "./TaskTimer.vue";
 import TaskBox from "./TaskBox.vue";
 

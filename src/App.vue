@@ -1,9 +1,9 @@
 <script lang="ts">
-import AppHeader from "./components/AppHeader.vue";
-import TaskForm from "./components/TaskForm.vue";
-import type { Task } from "./@types/Task";
-import TaskItem from "./components/TaskItem.vue";
-import TaskBox from "./components/TaskBox.vue";
+import AppHeader from "@src/components/AppHeader.vue";
+import TaskForm from "@src/components/TaskForm.vue";
+import type { Task } from "@src/types/Task";
+import TaskItem from "@src/components/TaskItem.vue";
+import TaskBox from "@src/components/TaskBox.vue";
 
 export default {
   components: {
