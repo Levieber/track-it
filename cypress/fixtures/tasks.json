@@ -3,17 +3,17 @@
 		{
 			"id": "1",
 			"title": "Study Javascript",
-			"time": 1000
+			"time": 1
 		},
 		{
 			"id": "2",
 			"title": "Make a router",
-			"time": 3000
+			"time": 3
 		},
 		{
 			"id": "3",
 			"title": "Make a dialog",
-			"time": 2000
+			"time": 2
 		}
 	]
 }
