@@ -14,7 +14,7 @@ export default {
   methods: {
     saveTask(timeInSeconds: number) {
       this.$emit("saveTask", {
-        id: crypto.randomUUID(),
+        id: crypto.randomUUID?.() ?? new Date().toISOString(),
         title: this.taskTitle,
         time: timeInSeconds,
       });
