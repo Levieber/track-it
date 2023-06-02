@@ -1,14 +1,20 @@
 import { defineConfig } from "cypress";
+import codeCoverageTask from "@cypress/code-coverage/task";
 
 export default defineConfig({
-  e2e: {
-    baseUrl: "http://localhost:5173/",
-  },
+	e2e: {
+		baseUrl: "http://localhost:5173/",
+		setupNodeEvents(on, config) {
+			codeCoverageTask(on, config);
 
-  component: {
-    devServer: {
-      framework: "vue",
-      bundler: "vite",
-    },
-  },
+			return config;
+		},
+	},
+
+	component: {
+		devServer: {
+			framework: "vue",
+			bundler: "vite",
+		},
+	},
 });
