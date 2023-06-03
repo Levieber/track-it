@@ -10,15 +10,7 @@ describe("Create a bulk of tasks", () => {
 			cy.get("ul").find("li").should("have.length", 1);
 
 			for (const task of tasks) {
-				if (task.title) {
-					cy.data("create-task").type(task.title);
-				}
-
-				cy.data("start-task").click();
-
-				cy.wait(task.time * 1000);
-
-				cy.data("stop-task").click();
+				cy.createTask(task);
 
 				cy.data("task-title")
 					.eq(0)

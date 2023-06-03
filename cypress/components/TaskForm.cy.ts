@@ -1,10 +1,8 @@
+import type { Task } from "@src/types/Task";
 import TaskForm from "@src/components/TaskForm.vue";
 
 describe("<TaskForm/>", () => {
 	it("should have emit the task data properly", () => {
-		const taskTitle = "Study Vuejs";
-		const taskTime = 1;
-
 		const onSaveTaskSpy = cy.spy().as("onSaveTaskSpy");
 
 		cy.mount(TaskForm, {
@@ -13,27 +11,23 @@ describe("<TaskForm/>", () => {
 			},
 		});
 
-		cy.data("create-task").type(taskTitle);
+		cy.fixture<{ tasks: Task[] }>("tasks").then(({ tasks }) => {
+			const { title, time } = tasks[0];
 
-		cy.data("start-task").click();
+			cy.createTask({ title, time });
 
-		cy.wait(taskTime * 1000);
+			cy.get("@onSaveTaskSpy").should("have.been.called");
 
-		cy.data("stop-task").click();
-
-		cy.get("@onSaveTaskSpy").should("have.been.called");
-
-		cy.get("@onSaveTaskSpy").should("have.been.calledWithMatch", {
-			title: taskTitle,
-			time: taskTime,
+			cy.get("@onSaveTaskSpy").should("have.been.calledWithMatch", {
+				title,
+				time,
+			});
 		});
 
 		cy.data("create-task").should("have.value", "");
 	});
 
 	it("should possible start and finish a task without a title", () => {
-		const taskTime = 1;
-
 		const onSaveTaskSpy = cy.spy().as("onSaveTaskSpy");
 
 		cy.mount(TaskForm, {
@@ -42,19 +36,17 @@ describe("<TaskForm/>", () => {
 			},
 		});
 
-		cy.data("start-task").click();
+		cy.fixture<{ tasks: Task[] }>("tasks").then(({ tasks }) => {
+			const { title, time } = tasks[3];
 
-		cy.data("create-task").should("have.value", "");
+			cy.createTask({ title, time });
 
-		cy.wait(taskTime * 1000);
+			cy.get("@onSaveTaskSpy").should("have.been.called");
 
-		cy.data("stop-task").click();
-
-		cy.get("@onSaveTaskSpy").should("have.been.called");
-
-		cy.get("@onSaveTaskSpy").should("have.been.calledWithMatch", {
-			title: "",
-			time: taskTime,
+			cy.get("@onSaveTaskSpy").should("have.been.calledWithMatch", {
+				title: "",
+				time,
+			});
 		});
 	});
 });
