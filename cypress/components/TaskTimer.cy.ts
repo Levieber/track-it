@@ -1,5 +1,4 @@
 import TaskTimer from "@src/components/TaskTimer.vue";
-import { timerFormatter } from "@src/utils/timerFormatter";
 
 describe("<TaskTimer />", () => {
 	it("should render seconds properly", () => {
@@ -11,9 +10,11 @@ describe("<TaskTimer />", () => {
 			},
 		});
 
-		const timeFormatted = timerFormatter(timeInSeconds);
+		const date = new Date();
+		date.setHours(0, 0, timeInSeconds);
+		const seconds = date.getSeconds().toString().padStart(2, "0");
 
-		cy.data("timer").contains(timeFormatted);
+		cy.data("timer").contains(`00:00:${seconds}`);
 	});
 
 	it("should render minutes properly", () => {
@@ -25,9 +26,11 @@ describe("<TaskTimer />", () => {
 			},
 		});
 
-		const timeFormatted = timerFormatter(timeInSeconds);
+		const date = new Date();
+		date.setHours(0, 0, timeInSeconds);
+		const minutes = date.getMinutes().toString().padStart(2, "0");
 
-		cy.data("timer").contains(timeFormatted);
+		cy.data("timer").contains(`00:${minutes}:00`);
 	});
 
 	it("should render hours properly", () => {
@@ -39,9 +42,11 @@ describe("<TaskTimer />", () => {
 			},
 		});
 
-		const timeFormatted = timerFormatter(timeInSeconds);
+		const date = new Date();
+		date.setHours(0, 0, timeInSeconds);
+		const hours = date.getHours().toString().padStart(2, "0");
 
-		cy.data("timer").contains(timeFormatted);
+		cy.data("timer").contains(`${hours}:00:00`);
 	});
 
 	it("should render the icon properly", () => {

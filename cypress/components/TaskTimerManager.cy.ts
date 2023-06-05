@@ -1,5 +1,4 @@
 import TaskTimerManager from "@src/components/TaskTimerManager.vue";
-import { timerFormatter } from "@src/utils/timerFormatter";
 
 describe("<TaskTimerManager />", () => {
 	it("should have the start button disabled when the timer start", () => {
@@ -26,21 +25,28 @@ describe("<TaskTimerManager />", () => {
 		cy.data("stop-task").should("be.visible").and("be.disabled");
 	});
 
-	it("should be display the time properly on stop", () => {
-		const timeInSeconds = 60 * 2; // 2 minutes
+	it("should be display the time properly on start", () => {
+		const taskTime = 60 * 2; // 2 minutes
 
-		cy.mount(TaskTimerManager, {
-			data() {
-				return {
-					timeInSeconds,
-					timerRunning: false,
-				};
-			},
-		});
+		cy.mount(TaskTimerManager);
 
-		const timeFormatted = timerFormatter(timeInSeconds);
+		cy.clock();
 
-		cy.data("timer").should("be.visible").contains(timeFormatted);
+		cy.data("start-task").click();
+
+		cy.tick(taskTime * 1000);
+
+		const date = new Date();
+		date.setHours(0, 0, taskTime);
+		const hours = date.getHours().toString().padStart(2, "0");
+		const minutes = date.getMinutes().toString().padStart(2, "0");
+		const seconds = date.getSeconds().toString().padStart(2, "0");
+
+		cy.data("timer")
+			.should("be.visible")
+			.contains(`${hours}:${minutes}:${seconds}`);
+
+		cy.data("stop-task").click();
 	});
 
 	it("should have to emit the time in seconds properly", () => {
@@ -53,9 +59,11 @@ describe("<TaskTimerManager />", () => {
 			},
 		});
 
+		cy.clock();
+
 		cy.data("start-task").click();
 
-		cy.wait(taskTime * 1000);
+		cy.tick(taskTime * 1000);
 
 		cy.data("stop-task").click();
 

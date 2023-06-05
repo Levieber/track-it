@@ -1,13 +1,15 @@
 import { Task as CreateTask } from "@src/types/Task";
 
 Cypress.Commands.add("createTask", (task) => {
+	cy.clock();
+
 	if (task.title) {
 		cy.data("create-task").type(task.title);
 	}
 
 	cy.data("start-task").click();
 
-	cy.wait(task.time * 1000);
+	cy.tick(task.time * 1000);
 
 	cy.data("stop-task").click();
 });
