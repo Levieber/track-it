@@ -1,24 +1,22 @@
-{
-	"tasks": [
-		{
-			"id": "1",
-			"title": "Study Javascript",
-			"time": 1
-		},
-		{
-			"id": "2",
-			"title": "Make a router",
-			"time": 3
-		},
-		{
-			"id": "3",
-			"title": "Make a dialog",
-			"time": 2
-		},
-		{
-			"id": "4",
-			"title": null,
-			"time": 1
-		}
-	]
-}
+[
+	{
+		"id": "1",
+		"title": "Study Javascript",
+		"time": 1
+	},
+	{
+		"id": "2",
+		"title": "Make a router",
+		"time": 3
+	},
+	{
+		"id": "3",
+		"title": "Make a dialog",
+		"time": 2
+	},
+	{
+		"id": "4",
+		"title": null,
+		"time": 1
+	}
+]

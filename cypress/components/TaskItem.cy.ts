@@ -32,7 +32,7 @@ describe("<TaskItem />", () => {
 	});
 
 	it("should render properly with a task without title", () => {
-		cy.fixture<{ tasks: Task[] }>("tasks").then(({ tasks }) => {
+		cy.fixture<Task[]>("tasks").then((tasks) => {
 			const taskWithoutTitle = tasks[3];
 			const defaultText = "Tarefa sem título";
 

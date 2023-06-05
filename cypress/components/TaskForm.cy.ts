@@ -11,7 +11,7 @@ describe("<TaskForm/>", () => {
 			},
 		});
 
-		cy.fixture<{ tasks: Task[] }>("tasks").then(({ tasks }) => {
+		cy.fixture<Task[]>("tasks").then((tasks) => {
 			const { title, time } = tasks[0];
 
 			cy.createTask({ title, time });
@@ -36,7 +36,7 @@ describe("<TaskForm/>", () => {
 			},
 		});
 
-		cy.fixture<{ tasks: Task[] }>("tasks").then(({ tasks }) => {
+		cy.fixture<Task[]>("tasks").then((tasks) => {
 			const { title, time } = tasks[3];
 
 			cy.createTask({ title, time });

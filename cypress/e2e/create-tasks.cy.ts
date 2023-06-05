@@ -5,7 +5,7 @@ describe("Create a bulk of tasks", () => {
 	it("should render the tasks properly", () => {
 		cy.visit("/");
 
-		cy.fixture("tasks").then(({ tasks }: { tasks: Task[] }) => {
+		cy.fixture<Task[]>("tasks").then((tasks) => {
 			const emptyTaskTitle = "Tarefa sem título";
 			cy.get("ul").find("li").should("have.length", 1);
 
