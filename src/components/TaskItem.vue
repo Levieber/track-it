@@ -17,7 +17,7 @@ export default {
 
 <template>
   <TaskBox>
-    <strong class="break-all">
+    <strong>
       {{ task.title || "Tarefa sem título" }}
     </strong>
     <TaskTimer with-icon :time-in-seconds="task.time" />
