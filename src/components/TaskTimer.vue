@@ -26,6 +26,6 @@ export default {
 
 <template>
   <strong data-cy="timer" class="flex items-center justify-center gap-1 text-xl">
-    <IconClock v-if="withIcon" />{{ elapsedTime }}
+    <IconClock data-cy="timer-icon" v-if="withIcon" />{{ elapsedTime }}
   </strong>
 </template>
