@@ -52,6 +52,11 @@ jobs:
           name: build
           path: build
 
+      - name: Pnpm Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
@@ -74,6 +79,11 @@ jobs:
         with:
           name: build
           path: build
+
+      - name: Pnpm Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
@@ -98,6 +108,11 @@ jobs:
           name: build
           path: build
 
+      - name: Pnpm Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
@@ -121,6 +136,11 @@ jobs:
         with:
           name: build
           path: build
+
+      - name: Pnpm Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
