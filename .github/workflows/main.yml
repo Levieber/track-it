@@ -50,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: build
+          path: dist
 
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
@@ -78,7 +78,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: build
+          path: dist
 
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
@@ -106,7 +106,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: build
+          path: dist
 
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
@@ -135,7 +135,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: build
+          path: dist
 
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
