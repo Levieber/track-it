@@ -28,6 +28,7 @@ export default {
   <form @submit.prevent class="flex flex-wrap items-center justify-center gap-3">
     <input
       v-model="taskTitle"
+      data-cy="create-task"
       class="input-bordered input w-full max-w-lg"
       type="text"
       placeholder="Qual tarefa deseja realizar?"

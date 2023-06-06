@@ -1,6 +1,6 @@
 <script lang="ts">
 import { PropType } from "vue";
-import { Task } from "../@types/Task";
+import type { Task } from "@src/types/Task";
 import TaskTimer from "./TaskTimer.vue";
 import TaskBox from "./TaskBox.vue";
 
@@ -17,9 +17,9 @@ export default {
 
 <template>
   <TaskBox>
-    <strong class="break-all">
+    <strong data-cy="task-title">
       {{ task.title || "Tarefa sem título" }}
     </strong>
-    <TaskTimer with-icon :time-in-seconds="task.time" />
+    <TaskTimer data-cy="task-timer" with-icon :time-in-seconds="task.time" />
   </TaskBox>
 </template>

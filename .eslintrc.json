@@ -21,5 +21,12 @@
     "vue",
     "@typescript-eslint"
   ],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/no-namespace": [
+      "error",
+      {
+        "allowDeclarations": true
+      }
+    ]
+  }
 }

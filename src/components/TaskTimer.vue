@@ -1,4 +1,5 @@
 <script lang="ts">
+import { timerFormatter } from "@src/utils/timerFormatter";
 import IconClock from "./icons/IconClock.vue";
 
 export default {
@@ -14,10 +15,7 @@ export default {
   },
   computed: {
     elapsedTime() {
-      const TIME_INDEX_START = 11;
-      const TIME_INDEX_END = 19;
-      const date = new Date(this.timeInSeconds * 1000);
-      const timeFormatted = date.toISOString().substring(TIME_INDEX_START, TIME_INDEX_END);
+      const timeFormatted = timerFormatter(this.timeInSeconds);
 
       return timeFormatted;
     },
@@ -27,8 +25,7 @@ export default {
 </script>
 
 <template>
-  <strong class="flex items-center justify-center gap-1 text-xl">
-    <IconClock v-if="withIcon" />
-    {{ elapsedTime }}
+  <strong data-cy="timer" class="flex items-center justify-center gap-1 text-xl">
+    <IconClock data-cy="timer-icon" v-if="withIcon" />{{ elapsedTime }}
   </strong>
 </template>
