@@ -1,7 +1,7 @@
 <script lang="ts">
-import TaskTimer from "./TaskTimer.vue";
-import IconPlay from "./icons/IconPlay.vue";
-import IconPause from "./icons/IconPause.vue";
+import TaskTimer from "@src/components/BaseTimer.vue";
+import IconPlay from "@src/components/icons/IconPlay.vue";
+import IconPause from "@src/components/icons/IconPause.vue";
 
 export default {
   components: {

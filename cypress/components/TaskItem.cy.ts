@@ -1,4 +1,4 @@
-import TaskItem from "@src/components/TaskItem.vue";
+import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
 import { hasElementOverflowX } from "../utils/hasElementOverflowX";
 import { Task } from "@src/types/Task";
 

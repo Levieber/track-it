@@ -1,4 +1,4 @@
-import TaskTimerManager from "@src/components/TaskTimerManager.vue";
+import TaskTimerManager from "@src/screens/Tasks/patterns/TaskTimerManager.vue";
 
 describe("<TaskTimerManager />", () => {
 	it("should have the start button disabled when the timer start", () => {

@@ -14,7 +14,8 @@
 	},
 	"dependencies": {
 		"daisyui": "^3.0.6",
-		"vue": "^3.3.4"
+		"vue": "^3.3.4",
+		"vue-router": "^4.2.2"
 	},
 	"devDependencies": {
 		"@cypress/code-coverage": "^3.10.7",

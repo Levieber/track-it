@@ -1,5 +1,5 @@
 import type { Task } from "@src/types/Task";
-import TaskForm from "@src/components/TaskForm.vue";
+import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
 
 describe("<TaskForm/>", () => {
 	it("should have emit the task data properly", () => {
