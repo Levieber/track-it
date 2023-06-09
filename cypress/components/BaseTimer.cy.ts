@@ -2,7 +2,11 @@ import TaskTimer from "@src/components/BaseTimer.vue";
 
 describe("<TaskTimer />", () => {
 	it("should render seconds properly", () => {
-		const timeInSeconds = 35; // 2 minutes
+		const timeInSeconds = 35;
+		const formattedTimeString = `00:00:${String(timeInSeconds).padStart(
+			2,
+			"0",
+		)}`;
 
 		cy.mount(TaskTimer, {
 			props: {
@@ -10,15 +14,13 @@ describe("<TaskTimer />", () => {
 			},
 		});
 
-		const date = new Date();
-		date.setHours(0, 0, timeInSeconds);
-		const seconds = date.getSeconds().toString().padStart(2, "0");
-
-		cy.data("timer").contains(`00:00:${seconds}`);
+		cy.data("timer").contains(formattedTimeString);
 	});
 
 	it("should render minutes properly", () => {
-		const timeInSeconds = 60 * 1; // 2 minutes
+		const minutes = 1;
+		const timeInSeconds = 60 * minutes;
+		const formattedTimeString = `00:${String(minutes).padStart(2, "0")}:00`;
 
 		cy.mount(TaskTimer, {
 			props: {
@@ -26,15 +28,13 @@ describe("<TaskTimer />", () => {
 			},
 		});
 
-		const date = new Date();
-		date.setHours(0, 0, timeInSeconds);
-		const minutes = date.getMinutes().toString().padStart(2, "0");
-
-		cy.data("timer").contains(`00:${minutes}:00`);
+		cy.data("timer").contains(formattedTimeString);
 	});
 
 	it("should render hours properly", () => {
-		const timeInSeconds = 60 * 60 * 1; // 1 hour
+		const hours = 1;
+		const timeInSeconds = 60 * 60 * hours;
+		const formattedTimeString = `${String(hours).padStart(2, "0")}:00:00`;
 
 		cy.mount(TaskTimer, {
 			props: {
@@ -42,11 +42,21 @@ describe("<TaskTimer />", () => {
 			},
 		});
 
-		const date = new Date();
-		date.setHours(0, 0, timeInSeconds);
-		const hours = date.getHours().toString().padStart(2, "0");
+		cy.data("timer").contains(formattedTimeString);
+	});
 
-		cy.data("timer").contains(`${hours}:00:00`);
+	it("should render more than 24 hours properly", () => {
+		const hours = 25;
+		const timeInSeconds = 60 * 60 * hours;
+		const formattedTimeString = `${hours}:00:00`;
+
+		cy.mount(TaskTimer, {
+			props: {
+				timeInSeconds,
+			},
+		});
+
+		cy.data("timer").contains(formattedTimeString);
 	});
 
 	it("should render the icon properly", () => {

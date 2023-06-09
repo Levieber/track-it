@@ -26,7 +26,8 @@ describe("<TaskTimerManager />", () => {
 	});
 
 	it("should be display the time properly on start", () => {
-		const taskTime = 60 * 2; // 2 minutes
+		const taskTime = 60 * 2;
+		const formattedTimeString = "00:02:00";
 
 		cy.mount(TaskTimerManager);
 
@@ -36,15 +37,7 @@ describe("<TaskTimerManager />", () => {
 
 		cy.tick(taskTime * 1000);
 
-		const date = new Date();
-		date.setHours(0, 0, taskTime);
-		const hours = date.getHours().toString().padStart(2, "0");
-		const minutes = date.getMinutes().toString().padStart(2, "0");
-		const seconds = date.getSeconds().toString().padStart(2, "0");
-
-		cy.data("timer")
-			.should("be.visible")
-			.contains(`${hours}:${minutes}:${seconds}`);
+		cy.data("timer").should("be.visible").contains(formattedTimeString);
 
 		cy.data("stop-task").click();
 	});
