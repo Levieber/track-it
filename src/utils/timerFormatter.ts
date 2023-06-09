@@ -1,7 +1,9 @@
-const TIME_INDEX_START = 11;
-const TIME_INDEX_END = 19;
-
 export const timerFormatter = (timeInSeconds: number) => {
-	const date = new Date(timeInSeconds * 1000);
-	return date.toISOString().substring(TIME_INDEX_START, TIME_INDEX_END);
+	const hours = Math.floor(timeInSeconds / 3600);
+	const minutes = Math.floor((timeInSeconds % 3600) / 60);
+	const seconds = timeInSeconds % 60;
+
+	return [hours, minutes, seconds]
+		.map((v) => v.toString().padStart(2, "0"))
+		.join(":");
 };
