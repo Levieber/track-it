@@ -1,8 +1,9 @@
 <script lang="ts">
 import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
-import type { Task } from "@src/types/Task";
 import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
 import TaskBox from "@src/components/BaseBox.vue";
+import { mapStores } from "pinia";
+import { useTaskStore } from "@src/stores/task";
 
 export default {
   components: {
@@ -10,19 +11,10 @@ export default {
     TaskItem,
     TaskBox,
   },
-  data() {
-    return {
-      tasks: [] as Task[],
-    };
-  },
   computed: {
+    ...mapStores(useTaskStore),
     isTaskListEmpty() {
-      return this.tasks.length === 0;
-    },
-  },
-  methods: {
-    createTask(task: Task) {
-      this.tasks.unshift(task);
+      return this.taskStore.tasks.length === 0;
     },
   },
 };
@@ -31,9 +23,9 @@ export default {
 <template>
   <section class="flex flex-col gap-5 p-3">
     <h2 class="text-center text-3xl">Suas tarefas:</h2>
-    <TaskForm @save-task="createTask" />
+    <TaskForm @save-task="taskStore.addTask" />
     <ul class="flex flex-col items-center gap-3" role="list">
-      <li class="w-full max-w-5xl" v-for="task of tasks" :key="task.id">
+      <li class="w-full max-w-5xl" v-for="task of taskStore.tasks" :key="task.id">
         <TaskItem :task="task" />
       </li>
       <li class="w-full max-w-5xl" v-if="isTaskListEmpty">
