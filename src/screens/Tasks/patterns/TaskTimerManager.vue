@@ -35,25 +35,27 @@ export default {
 </script>
 
 <template>
-  <section class="w-full text-center">
+  <section>
     <TaskTimer :time-in-seconds="timeInSeconds" />
   </section>
-  <button
-    data-cy="start-task"
-    :disabled="timerRunning"
-    @click="startTimer"
-    type="submit"
-    class="btn-accent btn flex gap-2 text-black"
-  >
-    <IconPlay /> Começar
-  </button>
-  <button
-    data-cy="stop-task"
-    :disabled="!timerRunning"
-    @click="stopTimer"
-    type="button"
-    class="btn-error btn flex gap-2 text-white"
-  >
-    <IconPause /> Encerrar
-  </button>
+  <section class="flex flex-wrap justify-center gap-3">
+    <button
+      data-cy="start-task"
+      :disabled="timerRunning"
+      @click="startTimer"
+      type="submit"
+      class="btn-accent btn flex gap-2 text-black"
+    >
+      <IconPlay /> Começar
+    </button>
+    <button
+      data-cy="stop-task"
+      :disabled="!timerRunning"
+      @click="stopTimer"
+      type="button"
+      class="btn-error btn flex gap-2 text-white"
+    >
+      <IconPause /> Encerrar
+    </button>
+  </section>
 </template>
