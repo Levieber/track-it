@@ -13,10 +13,19 @@ export default {
     RouterLink,
     IconPlus,
   },
+  data() {
+    return {
+      search: "",
+    };
+  },
   computed: {
     ...mapStores(useTaskStore),
     isTaskListEmpty() {
       return this.taskStore.tasks.length === 0;
+    },
+    taskFiltered() {
+      const query = new RegExp(this.search, "i");
+      return this.taskStore.tasks.filter((t) => query.test(t.title));
     },
   },
 };
@@ -24,14 +33,25 @@ export default {
 
 <template>
   <section class="flex flex-col items-center gap-5">
-    <RouterLink
-      data-cy="create-task-link"
-      class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
-      :to="{ name: 'new-task' }"
-      ><IconPlus /> Criar tarefa</RouterLink
-    >
+    <div class="flex gap-3">
+      <RouterLink
+        data-cy="create-task-link"
+        class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
+        :to="{ name: 'new-task' }"
+      >
+        <IconPlus /> Criar tarefa
+      </RouterLink>
+      <input
+        aria-label="Buscar tarefa"
+        type="text"
+        class="input-bordered input"
+        placeholder="Busque por uma tarefa"
+        v-model="search"
+        v-if="taskStore.tasks.length > 0"
+      />
+    </div>
     <ul class="flex w-full max-w-4xl flex-col gap-3" role="list">
-      <li v-for="task of taskStore.tasks" :key="task.id">
+      <li v-for="task of taskFiltered" :key="task.id">
         <TaskItem :task="task" />
       </li>
       <li v-if="isTaskListEmpty">
