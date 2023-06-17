@@ -53,7 +53,7 @@ export default {
       :disabled="!timerRunning"
       @click="stopTimer"
       type="button"
-      class="btn-error btn flex gap-2 text-white"
+      class="btn-error btn flex gap-2"
     >
       <IconPause /> Encerrar
     </button>
