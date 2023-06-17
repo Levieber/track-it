@@ -5,6 +5,9 @@ import TaskTimer from "@src/components/BaseTimer.vue";
 import TaskBox from "@src/components/BaseBox.vue";
 import { RouterLink } from "vue-router";
 import IconEdit from "@src/components/icons/IconEdit.vue";
+import IconTrash from "@src/components/icons/IconTrash.vue";
+import { mapActions } from "pinia";
+import { useTaskStore } from "@src/stores/task";
 
 export default {
   props: {
@@ -13,7 +16,19 @@ export default {
       required: true,
     },
   },
-  components: { TaskTimer, TaskBox, RouterLink, IconEdit },
+  methods: {
+    ...mapActions(useTaskStore, {
+      delete: "deleteTask",
+    }),
+    deleteTask() {
+      const deletionConfirmation = confirm(`Tem certeza de excluir a tarefa ${this.task.title}?`);
+
+      if (deletionConfirmation && this.task.id) {
+        this.delete(this.task.id);
+      }
+    },
+  },
+  components: { TaskTimer, TaskBox, RouterLink, IconEdit, IconTrash },
 };
 </script>
 
@@ -31,6 +46,9 @@ export default {
       >
         <IconEdit /> Editar tarefa
       </RouterLink>
+      <button data-cy="delete-task-button" @click="deleteTask" class="btn-error btn flex items-center gap-1">
+        <IconTrash /> Deletar tarefa
+      </button>
     </div>
   </TaskBox>
 </template>
