@@ -42,6 +42,7 @@ export default {
         <IconPlus /> Criar tarefa
       </RouterLink>
       <input
+        data-cy="search-task"
         aria-label="Buscar tarefa"
         type="text"
         class="input-bordered input"

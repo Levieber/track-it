@@ -54,4 +54,64 @@ describe("<TaskList />", () => {
       cy.get("li").should("have.length", tasks.length);
     });
   });
+
+  it("should no render the search input when not have tasks", () => {
+    cy.mount(TaskList, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: cy.spy,
+            initialState: {
+              task: {
+                tasks: [],
+              },
+            },
+          }),
+        ],
+      },
+    });
+
+    cy.data("search-task").should("not.exist");
+  });
+
+  it("should filter the task properly", () => {
+    cy.mount(TaskList, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: cy.spy,
+            initialState: {
+              task: {
+                tasks: [
+                  {
+                    id: "1",
+                    title: "Make a about page",
+                    time: 150,
+                  },
+                  {
+                    id: "2",
+                    title: "Make a contact page",
+                    time: 150,
+                  },
+                  {
+                    id: "3",
+                    title: "Study the test pyramid",
+                    time: 150,
+                  },
+                ],
+              },
+            },
+          }),
+        ],
+      },
+    });
+
+    cy.data("search-task").as("searchInput");
+
+    cy.get("@searchInput").should("be.visible");
+
+    cy.get("@searchInput").type("make");
+
+    cy.get("li").should("have.length", 2);
+  });
 });

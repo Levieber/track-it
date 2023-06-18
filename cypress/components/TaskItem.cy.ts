@@ -25,6 +25,7 @@ describe("<TaskItem />", () => {
 
     cy.data("task-timer").should("be.visible").contains(formattedTimeString);
     cy.data("edit-task-link").should("be.visible");
+    cy.data("delete-task-button").should("be.visible");
   });
 
   it("should render properly with a task without title", () => {
@@ -46,5 +47,6 @@ describe("<TaskItem />", () => {
 
     cy.data("task-timer").eq(0).contains(formattedTimeString);
     cy.data("edit-task-link").should("be.visible");
+    cy.data("delete-task-button").should("be.visible");
   });
 });

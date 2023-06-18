@@ -62,4 +62,53 @@ describe("Task - User Journey", () => {
       }
     });
   });
+
+  it("should remove the task properly", () => {
+    cy.fixture<Task[]>("tasks").then((tasks) => {
+      for (const task of tasks.slice(0, 3)) {
+        cy.visit("/tasks/new");
+        cy.createTask(task);
+      }
+    });
+
+    cy.data("delete-task-button").eq(0).click();
+
+    cy.get("li").should("have.length", 2);
+  });
+
+  it("should filter the tasks properly", () => {
+    const tasks: Task[] = [
+      {
+        title: "Study Javascript",
+        time: 150,
+      },
+      {
+        title: "Study Typescript",
+        time: 150,
+      },
+      {
+        title: "Make a e2e test",
+        time: 250,
+      },
+    ];
+
+    for (const task of tasks) {
+      cy.visit("/tasks/new");
+      cy.createTask(task);
+    }
+
+    cy.data("search-task").as("searchInput");
+
+    cy.get("@searchInput").type("study");
+
+    cy.get("li").should("have.length", 2);
+
+    cy.get("@searchInput").clear().type("test");
+
+    cy.get("li").should("have.length", 1);
+
+    cy.get("@searchInput").clear();
+
+    cy.get("li").should("have.length", tasks.length);
+  });
 });
