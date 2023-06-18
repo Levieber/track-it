@@ -18,7 +18,7 @@ export const useTaskStore = defineStore("task", {
     findTask(taskId: string) {
       return this.tasks.find((t) => t.id === taskId);
     },
-    editTask(taskId: string, newContent: Omit<Partial<Task>, "id" | "time">) {
+    editTask(taskId: string, newContent: Omit<Partial<Task>, "id">) {
       const index = this.tasks.findIndex((t) => t.id === taskId);
       this.tasks[index] = { ...this.tasks[index], ...newContent };
     },

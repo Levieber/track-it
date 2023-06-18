@@ -1,4 +1,5 @@
 import { Task } from "@src/types/Task";
+import { timerFormatter } from "@src/utils/timerFormatter";
 
 describe("Task - User Journey", () => {
   it("should create a bulk of tasks and render them properly", () => {
@@ -44,11 +45,12 @@ describe("Task - User Journey", () => {
         cy.visit("/tasks/new");
         cy.createTask(task);
 
-        cy.data("task-title").as("taskTitle");
+        cy.data("task-title").eq(0).as("taskTitle");
+        cy.data("task-timer").eq(0).as("taskTimer");
 
-        cy.get("@taskTitle")
-          .eq(0)
-          .should("have.text", task.title || defaultTaskTitle);
+        cy.get("@taskTitle").should("have.text", task.title || defaultTaskTitle);
+
+        cy.get("@taskTimer").should("contain.text", timerFormatter(task.time));
 
         cy.get("li").eq(0).find("a").contains("editar tarefa", { matchCase: false }).click();
 
@@ -56,9 +58,11 @@ describe("Task - User Journey", () => {
 
         cy.editTask({
           title: task.editTitle,
+          time: 15,
         });
 
         cy.get("@taskTitle").eq(0).should("have.text", task.editTitle);
+        cy.data("task-timer").eq(0).should("contain.text", timerFormatter(task.time + 15));
       }
     });
   });

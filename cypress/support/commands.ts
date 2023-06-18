@@ -7,19 +7,28 @@ Cypress.Commands.add("createTask", (task) => {
     cy.data("create-task").type(task.title);
   }
 
-  cy.data("start-task").click();
+  cy.data("start-timer").click();
 
   cy.tick(task.time * 1000);
 
-  cy.data("stop-task").click();
+  cy.data("stop-timer").click();
+
+  cy.data("save-task-button").click();
 });
 
 Cypress.Commands.add("editTask", (newContent) => {
-  cy.data("edit-task")
-    .clear()
-    .type(newContent.title || "");
+  if (newContent.time) {
+    cy.clock();
+    cy.data("start-timer").click();
+    cy.tick(newContent.time * 1000);
+    cy.data("stop-timer").click();
+  }
 
-  cy.data("finish-edit").click();
+  if (newContent.title) {
+    cy.data("edit-task").clear().type(newContent.title);
+  }
+
+  cy.data("save-task-button").click();
 });
 
 Cypress.Commands.add("data", (value, type = "cy") => {
@@ -57,7 +66,7 @@ declare global {
        *	title: "Study Typescript",
        * })
        */
-      editTask(newContent: Omit<Partial<CreateTask>, "id" | "time">): void;
+      editTask(newContent: Omit<Partial<CreateTask>, "id">): void;
     }
   }
 }

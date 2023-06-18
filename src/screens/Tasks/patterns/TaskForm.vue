@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       taskTitle: "",
+      time: 0,
     };
   },
   computed: {
@@ -26,34 +27,37 @@ export default {
     },
   },
   methods: {
-    editTask() {
-      this.taskStore.editTask(String(this.id), {
-        title: this.taskTitle,
-      });
-      this.$router.push({
-        name: "tasks",
-      });
-    },
-    saveTask(timeInSeconds: number) {
-      this.taskStore.addTask({
-        id: crypto.randomUUID?.() ?? new Date().toISOString(),
-        title: this.taskTitle,
-        time: timeInSeconds,
-      });
+    saveTask() {
+      if (this.id) {
+        this.taskStore.editTask(String(this.id), {
+          title: this.taskTitle,
+          time: this.time,
+        });
+      } else {
+        this.taskStore.addTask({
+          id: crypto.randomUUID?.() ?? new Date().toISOString(),
+          title: this.taskTitle,
+          time: this.time,
+        });
+      }
+
       this.taskTitle = "";
       this.$router.push({ name: "tasks" });
     },
   },
   mounted() {
     if (this.id) {
-      this.taskTitle = this.taskStore.findTask(String(this.id))?.title ?? "";
+      const task = this.taskStore.findTask(String(this.id));
+
+      this.taskTitle = task?.title ?? "";
+      this.time = task?.time ?? 0;
     }
   },
 };
 </script>
 
 <template>
-  <div role="form" class="flex flex-col flex-wrap items-center justify-center gap-3">
+  <form @submit.prevent="saveTask" class="flex flex-col flex-wrap items-center justify-center gap-3">
     <input
       v-model="taskTitle"
       :data-cy="id ? 'edit-task' : 'create-task'"
@@ -62,14 +66,12 @@ export default {
       :placeholder="placeholderText"
       aria-label="Criar tarefa"
     />
-    <TaskTimerManager v-if="!id" @timer-finish="saveTask" />
-    <button
-      data-cy="finish-edit"
-      v-else
-      @click="editTask"
-      class="btn-accent btn-block btn max-w-lg text-black"
-    >
+    <TaskTimerManager
+      :initial-time="id ? taskStore.findTask(String(id))?.time || 0 : 0"
+      @timer-finish="(timeInSeconds: number) => time = timeInSeconds"
+    />
+    <button data-cy="save-task-button" class="btn-accent btn-block btn max-w-lg text-black">
       <IconSave /> Salvar
     </button>
-  </div>
+  </form>
 </template>

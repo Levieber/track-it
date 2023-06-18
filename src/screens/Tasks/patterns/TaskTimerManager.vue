@@ -9,10 +9,15 @@ export default {
     IconPlay,
     IconPause,
   },
+  props: {
+    initialTime: {
+      type: Number,
+    },
+  },
   emits: ["timerFinish"],
   data() {
     return {
-      timeInSeconds: 0,
+      timeInSeconds: this.initialTime || 0,
       timerId: 0,
       timerRunning: false,
     };
@@ -28,7 +33,6 @@ export default {
       this.timerRunning = false;
       clearInterval(this.timerId);
       this.$emit("timerFinish", this.timeInSeconds);
-      this.timeInSeconds = 0;
     },
   },
 };
@@ -40,16 +44,16 @@ export default {
   </section>
   <section class="flex flex-wrap justify-center gap-3">
     <button
-      data-cy="start-task"
+      data-cy="start-timer"
       :disabled="timerRunning"
       @click="startTimer"
-      type="submit"
-      class="btn-accent btn flex gap-2 text-black"
+      type="button"
+      class="btn-success btn flex gap-2 text-black"
     >
       <IconPlay /> Começar
     </button>
     <button
-      data-cy="stop-task"
+      data-cy="stop-timer"
       :disabled="!timerRunning"
       @click="stopTimer"
       type="button"
