@@ -1,4 +1,4 @@
-import TaskTimer from "@src/components/TaskTimer.vue";
+import TaskTimer from "@src/components/BaseTimer.vue";
 
 describe("<TaskTimer />", () => {
 	it("should render seconds properly", () => {
