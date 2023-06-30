@@ -67,7 +67,7 @@ export default {
       aria-label="Criar tarefa"
     />
     <TaskTimerManager
-      :initial-time="id ? taskStore.findTask(String(id))?.time || 0 : 0"
+      :initial-time="taskStore.findTask(String(id))?.time"
       @timer-finish="(timeInSeconds: number) => time = timeInSeconds"
     />
     <button data-cy="save-task-button" class="btn-accent btn-block btn max-w-lg text-black">

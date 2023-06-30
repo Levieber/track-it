@@ -50,7 +50,7 @@ export default {
       type="button"
       class="btn-success btn flex gap-2 text-black"
     >
-      <IconPlay /> Começar
+      <IconPlay /> {{ initialTime ? "Continuar" : "Começar" }}
     </button>
     <button
       data-cy="stop-timer"
@@ -59,7 +59,7 @@ export default {
       type="button"
       class="btn-error btn flex gap-2"
     >
-      <IconPause /> Encerrar
+      <IconPause /> Pausar
     </button>
   </section>
 </template>
