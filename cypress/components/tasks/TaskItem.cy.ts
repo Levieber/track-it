@@ -1,5 +1,5 @@
 import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
-import { hasElementOverflowX } from "../utils/hasElementOverflowX";
+import { hasElementOverflowX } from "../../utils/hasElementOverflowX";
 
 describe("<TaskItem />", () => {
   it("should render a task with long title and time properly", () => {
