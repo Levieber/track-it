@@ -1,3 +1,4 @@
+import { Project } from "@src/types/Project";
 import { Task as CreateTask } from "@src/types/Task";
 
 Cypress.Commands.add("createTask", (task) => {
@@ -12,6 +13,10 @@ Cypress.Commands.add("createTask", (task) => {
   cy.tick(task.time * 1000);
 
   cy.data("stop-timer").click();
+
+  if (task.project) {
+    cy.data("link-project").select(task.project);
+  }
 
   cy.data("save-task-button").click();
 });
@@ -28,7 +33,27 @@ Cypress.Commands.add("editTask", (newContent) => {
     cy.data("edit-task").clear().type(newContent.title);
   }
 
+  if (newContent.project) {
+    cy.data("link-project").select(newContent.project);
+  }
+
   cy.data("save-task-button").click();
+});
+
+Cypress.Commands.add("createProject", (project) => {
+  if (project.name) {
+    cy.data("create-project").type(project.name);
+  }
+
+  cy.data("save-project-button").click();
+});
+
+Cypress.Commands.add("editProject", (newContent) => {
+  if (newContent.name) {
+    cy.data("edit-project").clear().type(newContent.name);
+  }
+
+  cy.data("save-project-button").click();
 });
 
 Cypress.Commands.add("data", (value, type = "cy") => {
@@ -67,6 +92,24 @@ declare global {
        * })
        */
       editTask(newContent: Omit<Partial<CreateTask>, "id">): void;
+      /**
+       * Custom command to create a project on UI
+       * @param project
+       * @example
+       * cy.createProject({
+       *	name: "Vue Course",
+       * })
+       */
+      createProject(project: Omit<Partial<Project>, "id">): void;
+      /**
+       * Custom command to edit a project on UI
+       * @param task
+       * @example
+       * cy.createTask("random-id", {
+       *	name: "Vue 3 Course",
+       * })
+       */
+      editProject(newContent: Omit<Partial<Project>, "id">): void;
     }
   }
 }

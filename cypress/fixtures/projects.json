@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "Vue 3 Course",
+    "editName": "Vue 22 Course"
+  },
+  {
+    "id": "2",
+    "name": "Pinia Course",
+    "editName": "Pinia 22 Course"
+  },
+  {
+    "id": "3",
+    "name": "Cypress Course",
+    "editName": "Cypress 22 Course"
+  },
+  {
+    "id": "4",
+    "name": null,
+    "editName": "Vue Router 22 Course"
+  }
+]

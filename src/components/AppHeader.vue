@@ -1,5 +1,6 @@
 <script lang="ts">
 import IconTask from "./icons/IconTask.vue";
+import IconProject from "./icons/IconProject.vue";
 import { RouterLink } from "vue-router";
 
 export default {
@@ -13,7 +14,7 @@ export default {
       document.documentElement.dataset.theme = newDarkMode ? "dark" : "light";
     },
   },
-  components: { RouterLink, IconTask },
+  components: { RouterLink, IconTask, IconProject },
 };
 </script>
 
@@ -22,16 +23,23 @@ export default {
     class="flex flex-wrap items-center justify-center gap-3 bg-sky-900 p-3 text-white sm:justify-between"
   >
     <h1 class="text-2xl">Track It</h1>
-    <nav class="flex w-full justify-center md:w-auto">
+    <nav class="flex w-full justify-center gap-4 md:w-auto">
       <RouterLink
-        title="Voltar para a listagem"
+        title="Ir para a página das tarefas"
         class="flex items-center gap-1 text-lg"
         :to="{ name: 'tasks' }"
       >
         <IconTask />Tarefas
       </RouterLink>
+      <RouterLink
+        title="Ir para a página dos projetos"
+        class="flex items-center gap-1 text-lg"
+        :to="{ name: 'projects' }"
+      >
+        <IconProject />Projetos
+      </RouterLink>
     </nav>
-    <label class="swap swap-rotate">
+    <label class="swap-rotate swap">
       <input data-cy="toggle-theme" type="checkbox" v-model="darkMode" />
       <span class="sr-only">Modo escuro</span>
 

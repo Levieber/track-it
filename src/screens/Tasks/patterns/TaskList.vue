@@ -33,7 +33,7 @@ export default {
 
 <template>
   <section class="flex flex-col items-center gap-5">
-    <div class="flex gap-3">
+    <div class="flex flex-wrap justify-center gap-3">
       <RouterLink
         data-cy="create-task-link"
         class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"

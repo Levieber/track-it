@@ -8,6 +8,7 @@ import IconEdit from "@src/components/icons/IconEdit.vue";
 import IconTrash from "@src/components/icons/IconTrash.vue";
 import { mapActions } from "pinia";
 import { useTaskStore } from "@src/stores/task";
+import { useProjectStore } from "@src/stores/project";
 
 export default {
   props: {
@@ -19,6 +20,9 @@ export default {
   methods: {
     ...mapActions(useTaskStore, {
       delete: "deleteTask",
+    }),
+    ...mapActions(useProjectStore, {
+      getProject: "findProject",
     }),
     deleteTask() {
       const deletionConfirmation = confirm(`Tem certeza de excluir a tarefa ${this.task.title}?`);
@@ -34,11 +38,14 @@ export default {
 
 <template>
   <TaskBox>
-    <strong data-cy="task-title" class="max-w-sm break-all">
+    <strong data-cy="task-title">
       {{ task.title || "Tarefa sem título" }}
     </strong>
+    <strong data-cy="task-project" v-if="task.project">
+      Projeto {{ getProject(task.project)?.name || "N/D" }}
+    </strong>
+    <TaskTimer data-cy="task-timer" with-icon :time-in-seconds="task.time" />
     <div class="flex flex-wrap gap-3">
-      <TaskTimer data-cy="task-timer" with-icon :time-in-seconds="task.time" />
       <RouterLink
         data-cy="edit-task-link"
         class="btn-info btn flex items-center gap-1"
