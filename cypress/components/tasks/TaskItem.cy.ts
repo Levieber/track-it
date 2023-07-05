@@ -1,5 +1,6 @@
 import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
 import { hasElementOverflowX } from "../../utils/hasElementOverflowX";
+import { createTestingPinia } from "@pinia/testing";
 
 describe("<TaskItem />", () => {
   it("should render a task with long title and time properly", () => {
@@ -46,6 +47,69 @@ describe("<TaskItem />", () => {
     cy.data("task-title").eq(0).should("have.text", defaultText);
 
     cy.data("task-timer").eq(0).contains(formattedTimeString);
+    cy.data("edit-task-link").should("be.visible");
+    cy.data("delete-task-button").should("be.visible");
+  });
+
+  it("should render a task linked to a project properly", () => {
+    const project = {
+      id: "project-1",
+      name: "Vue 3 Course",
+    };
+
+    const task = {
+      id: "task-1",
+      title: "Directives",
+      time: 60,
+      project: project.id,
+    };
+
+    const formattedTimeString = "00:01:00";
+
+    cy.mount(TaskItem, {
+      props: {
+        task,
+      },
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: cy.spy,
+            stubActions: false,
+            initialState: {
+              project: {
+                projects: [project],
+              },
+            },
+          }),
+        ],
+      },
+    });
+
+    cy.data("task-title").should("be.visible").and("contain.text", task.title);
+    cy.data("task-timer").should("be.visible").and("contain.text", formattedTimeString);
+    cy.data("task-project").should("be.visible").and("contain.text", project.name);
+    cy.data("edit-task-link").should("be.visible");
+    cy.data("delete-task-button").should("be.visible");
+  });
+
+  it("should render a task without project properly properly", () => {
+    const task = {
+      id: "task-1",
+      title: "Directives",
+      time: 60,
+    };
+
+    const formattedTimeString = "00:01:00";
+
+    cy.mount(TaskItem, {
+      props: {
+        task,
+      },
+    });
+
+    cy.data("task-title").should("be.visible").and("contain.text", task.title);
+    cy.data("task-timer").should("be.visible").and("contain.text", formattedTimeString);
+    cy.data("task-project").should("not.exist");
     cy.data("edit-task-link").should("be.visible");
     cy.data("delete-task-button").should("be.visible");
   });

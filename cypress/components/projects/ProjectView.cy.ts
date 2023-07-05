@@ -77,12 +77,15 @@ describe("<ProjectsView />", () => {
   it("should filter the projects properly", () => {
     const projects = [
       {
+        id: "project-1",
         name: "Vue Course",
       },
       {
+        id: "project-2",
         name: "Typescript Course",
       },
       {
+        id: "project-3",
         name: "Task Tracker",
       },
     ];
@@ -109,5 +112,51 @@ describe("<ProjectsView />", () => {
     cy.get("@searchInput").type("course");
 
     cy.get("tbody").find("tr").should("have.length", 2);
+  });
+
+  it("should show the quantity of the tasks in a project properly", () => {
+    const project = {
+      id: "project-1",
+      name: "Vue 3 Course",
+    };
+
+    const tasks = [
+      {
+        id: "task-1",
+        title: "Directives Class",
+        time: 250,
+        project: project.id,
+      },
+      {
+        id: "task-2",
+        title: "Attributes Binding Class",
+        time: 150,
+        project: project.id,
+      },
+    ];
+
+    cy.mount(ProjectsView, {
+      props: {
+        project,
+      },
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: cy.spy,
+            stubActions: false,
+            initialState: {
+              task: {
+                tasks,
+              },
+              project: {
+                projects: [project],
+              },
+            },
+          }),
+        ],
+      },
+    });
+
+    cy.data("project-tasks-quantity").should("contain.text", tasks.length);
   });
 });

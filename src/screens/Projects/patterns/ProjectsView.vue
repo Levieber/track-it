@@ -57,6 +57,7 @@ export default {
         <thead>
           <tr>
             <th class="text-sm">Nome</th>
+            <th class="text-sm"><abbr title="Quantidade">Quant.</abbr> Tarefas</th>
             <th class="text-sm">Ações</th>
           </tr>
         </thead>

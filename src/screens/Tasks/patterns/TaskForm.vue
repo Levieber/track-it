@@ -3,6 +3,7 @@ import { mapStores } from "pinia";
 import TaskTimerManager from "./TaskTimerManager.vue";
 import { useTaskStore } from "@src/stores/task";
 import IconSave from "@src/components/icons/IconSave.vue";
+import { useProjectStore } from "@src/stores/project";
 
 export default {
   components: {
@@ -18,10 +19,12 @@ export default {
     return {
       taskTitle: "",
       time: 0,
+      project: "",
     };
   },
   computed: {
     ...mapStores(useTaskStore),
+    ...mapStores(useProjectStore),
     placeholderText() {
       return this.id ? "Atribua um título a tarefa" : "Qual tarefa deseja realizar?";
     },
@@ -32,12 +35,14 @@ export default {
         this.taskStore.editTask(String(this.id), {
           title: this.taskTitle,
           time: this.time,
+          project: this.project,
         });
       } else {
         this.taskStore.addTask({
           id: crypto.randomUUID?.() ?? new Date().toISOString(),
           title: this.taskTitle,
           time: this.time,
+          project: this.project,
         });
       }
 
@@ -49,8 +54,11 @@ export default {
     if (this.id) {
       const task = this.taskStore.findTask(String(this.id));
 
-      this.taskTitle = task?.title ?? "";
-      this.time = task?.time ?? 0;
+      if (task) {
+        this.taskTitle = task.title;
+        this.time = task.time;
+        this.project = (task.project && this.projectStore.findProject(task.project)?.id) ?? "";
+      }
     }
   },
 };
@@ -61,11 +69,17 @@ export default {
     <input
       v-model="taskTitle"
       :data-cy="id ? 'edit-task' : 'create-task'"
-      class="input-bordered input w-full max-w-lg"
+      class="input-bordered input w-full max-w-md"
       type="text"
       :placeholder="placeholderText"
       aria-label="Criar tarefa"
     />
+    <select data-cy="link-project" v-model="project" class="select-bordered select w-full max-w-md">
+      <option value="" selected>Sem projeto</option>
+      <option v-for="project of projectStore.projects" :key="project.id" :value="project.id">
+        {{ project.name }}
+      </option>
+    </select>
     <TaskTimerManager
       :initial-time="taskStore.findTask(String(id))?.time"
       @timer-finish="(timeInSeconds: number) => time = timeInSeconds"

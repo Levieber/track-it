@@ -1,5 +1,6 @@
 import { Project } from "@src/types/Project";
 import { defineStore } from "pinia";
+import { useTaskStore } from "./task";
 
 type ProjectStore = {
   projects: Project[];
@@ -25,6 +26,11 @@ export const useProjectStore = defineStore("project", {
     deleteProject(projectId: string) {
       const index = this.projects.findIndex((t) => t.id === projectId);
       this.projects.splice(index, 1);
+    },
+    getTotalTasks(projectId: string) {
+      const taskStore = useTaskStore();
+      const tasksFromProject = taskStore.tasks.filter((t) => t.project === projectId);
+      return tasksFromProject.length;
     },
   },
 });

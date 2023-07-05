@@ -14,6 +14,10 @@ Cypress.Commands.add("createTask", (task) => {
 
   cy.data("stop-timer").click();
 
+  if (task.project) {
+    cy.data("link-project").select(task.project);
+  }
+
   cy.data("save-task-button").click();
 });
 
@@ -27,6 +31,10 @@ Cypress.Commands.add("editTask", (newContent) => {
 
   if (newContent.title) {
     cy.data("edit-task").clear().type(newContent.title);
+  }
+
+  if (newContent.project) {
+    cy.data("link-project").select(newContent.project);
   }
 
   cy.data("save-task-button").click();

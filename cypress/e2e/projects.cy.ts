@@ -61,7 +61,7 @@ describe("Project - User Journey", () => {
     });
   });
 
-  it("should remove the task properly", () => {
+  it("should remove the project properly", () => {
     cy.fixture<Project[]>("projects").then((projects) => {
       for (const project of projects.slice(0, 3)) {
         cy.visit("/projects/new");
@@ -105,5 +105,43 @@ describe("Project - User Journey", () => {
     cy.get("@searchInput").clear();
 
     cy.get("tbody").find("tr").should("have.length", projects.length);
+  });
+
+  it("should link task to a project properly", () => {
+    const project = {
+      name: "Javascript Course",
+    };
+
+    const tasks = [
+      {
+        title: "Operators And Expression Class",
+        time: 250,
+        project: project.name,
+      },
+      {
+        title: "Loops Class",
+        time: 200,
+        project: project.name,
+      },
+    ];
+
+    cy.visit("/");
+
+    cy.get("a").contains("projetos", { matchCase: false }).as("projectsPageLink");
+
+    cy.get("@projectsPageLink").click();
+    cy.data("create-project-link").click();
+    cy.createProject(project);
+
+    cy.get("a").contains("tarefas", { matchCase: false }).click();
+
+    for (const task of tasks) {
+      cy.data("create-task-link").click();
+      cy.createTask(task);
+    }
+
+    cy.get("@projectsPageLink").click();
+
+    cy.data("project-tasks-quantity").should("contain.text", tasks.length);
   });
 });

@@ -14,9 +14,15 @@ export default {
       required: true,
     },
   },
+  computed: {
+    totalTasks() {
+      return this.getTotalTasks(this.project.id);
+    },
+  },
   methods: {
     ...mapActions(useProjectStore, {
       delete: "deleteProject",
+      getTotalTasks: "getTotalTasks",
     }),
     deleteProject() {
       const deletionConfirmation = confirm(`Tem certeza de excluir o projeto ${this.project.name}?`);
@@ -34,6 +40,7 @@ export default {
     <td data-cy="project-name" class="text-xl">
       {{ project.name }}
     </td>
+    <td data-cy="project-tasks-quantity" class="text-xl">{{ totalTasks }}</td>
     <td class="flex flex-wrap gap-2">
       <RouterLink
         data-cy="edit-project-link"

@@ -26,5 +26,9 @@ export const useTaskStore = defineStore("task", {
       const index = this.tasks.findIndex((t) => t.id === taskId);
       this.tasks.splice(index, 1);
     },
+    linkToProject(projectId: string, taskId: string) {
+      const taskIndex = this.tasks.findIndex((t) => t.id === taskId);
+      this.tasks[taskIndex].project = projectId;
+    },
   },
 });

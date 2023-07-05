@@ -3,9 +3,21 @@ import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
 import { useTaskStore } from "@src/stores/task";
 import { createTestingPinia } from "@pinia/testing";
 
+const projects = [
+  {
+    id: "project-1",
+    name: "Testing",
+  },
+  {
+    id: "project-2",
+    name: "E2E",
+  },
+];
+
 const toEditContent = {
   title: "Study Playwright",
   time: 150,
+  project: projects[0].id,
 };
 
 const toEditTask = {
@@ -18,6 +30,14 @@ describe("<TaskForm/>", () => {
     createTestingPinia({
       createSpy: cy.spy,
       stubActions: false,
+      initialState: {
+        task: {
+          tasks: [toEditTask],
+        },
+        project: {
+          projects,
+        },
+      },
     });
     cy.wrap(useTaskStore()).as("taskStore");
   });
@@ -52,38 +72,26 @@ describe("<TaskForm/>", () => {
     cy.get("@taskStore").its("addTask").should("have.been.calledWithMatch", task);
   });
 
-  it("should edit the time and title properly", () => {
+  it("should edit all properties properly", () => {
     const editContent = {
       title: "Study Cypress",
       time: 5,
+      project: "project-2",
     };
 
     cy.mount(TaskForm, {
       props: {
         id: toEditTask.id,
       },
-      global: {
-        plugins: [
-          createTestingPinia({
-            createSpy: cy.spy,
-            stubActions: false,
-            initialState: {
-              task: {
-                tasks: [toEditTask],
-              },
-            },
-          }),
-        ],
-      },
     });
 
-    cy.wrap(useTaskStore()).as("taskStore");
-
+    cy.data("link-project").should("have.value", toEditTask.project);
     cy.data("edit-task").should("have.value", toEditTask.title);
 
     cy.editTask({
       title: editContent.title,
       time: editContent.time,
+      project: editContent.project,
     });
 
     cy.get("@taskStore").its("editTask").should("have.been.called");
@@ -104,22 +112,7 @@ describe("<TaskForm/>", () => {
       props: {
         id: toEditTask.id,
       },
-      global: {
-        plugins: [
-          createTestingPinia({
-            createSpy: cy.spy,
-            stubActions: false,
-            initialState: {
-              task: {
-                tasks: [toEditTask],
-              },
-            },
-          }),
-        ],
-      },
     });
-
-    cy.wrap(useTaskStore()).as("taskStore");
 
     cy.data("edit-task").should("have.value", toEditTask.title);
 
@@ -142,19 +135,6 @@ describe("<TaskForm/>", () => {
       props: {
         id: toEditTask.id,
       },
-      global: {
-        plugins: [
-          createTestingPinia({
-            createSpy: cy.spy,
-            stubActions: false,
-            initialState: {
-              task: {
-                tasks: [toEditTask],
-              },
-            },
-          }),
-        ],
-      },
     });
 
     cy.wrap(useTaskStore()).as("taskStore");
@@ -171,6 +151,34 @@ describe("<TaskForm/>", () => {
       .should("have.been.calledWith", toEditTask.id, {
         ...toEditContent,
         time: editContent.time + toEditTask.time,
+      });
+  });
+
+  it("should allow to edit only the project", () => {
+    const editContent = {
+      project: projects[1].id,
+    };
+
+    cy.mount(TaskForm, {
+      props: {
+        id: toEditTask.id,
+      },
+    });
+
+    cy.wrap(useTaskStore()).as("taskStore");
+
+    cy.data("link-project").should("have.value", toEditTask.project);
+
+    cy.editTask({
+      project: editContent.project,
+    });
+
+    cy.get("@taskStore").its("editTask").should("have.been.called");
+    cy.get("@taskStore")
+      .its("editTask")
+      .should("have.been.calledWith", toEditTask.id, {
+        ...toEditContent,
+        ...editContent,
       });
   });
 });
