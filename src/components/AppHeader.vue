@@ -20,7 +20,7 @@ export default {
 
 <template>
   <header
-    class="flex flex-wrap items-center justify-center gap-3 bg-sky-900 p-3 text-white sm:justify-between"
+    class="flex flex-wrap items-center justify-center gap-3 bg-sky-900 p-3 text-white md:justify-between"
   >
     <h1 class="text-2xl">Track It</h1>
     <nav class="flex w-full justify-center gap-4 md:w-auto">
@@ -39,7 +39,7 @@ export default {
         <IconProject />Projetos
       </RouterLink>
     </nav>
-    <label class="swap-rotate swap">
+    <label class="swap swap-rotate">
       <input data-cy="toggle-theme" type="checkbox" v-model="darkMode" />
       <span class="sr-only">Modo escuro</span>
 
