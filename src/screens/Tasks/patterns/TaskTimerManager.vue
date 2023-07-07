@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       timeInSeconds: this.initialTime || 0,
+      startTime: 0,
       timerId: 0,
       timerRunning: false,
     };
@@ -25,14 +26,19 @@ export default {
   methods: {
     startTimer() {
       this.timerRunning = true;
+      this.startTime = Math.floor(Date.now() / 1000) - this.timeInSeconds;
       this.timerId = setInterval(() => {
-        this.timeInSeconds += 1;
+        this.updateTime();
       }, 1000); // 1 second
     },
     stopTimer() {
       this.timerRunning = false;
       clearInterval(this.timerId);
       this.$emit("timerFinish", this.timeInSeconds);
+    },
+    updateTime() {
+      const now = Math.floor(Date.now() / 1000);
+      this.timeInSeconds = now - +this.startTime;
     },
   },
 };
@@ -50,7 +56,7 @@ export default {
       type="button"
       class="btn-success btn flex gap-2 text-black"
     >
-      <IconPlay /> {{ initialTime ? "Continuar" : "Começar" }}
+      <IconPlay /> {{ initialTime || timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
     <button
       data-cy="stop-timer"
