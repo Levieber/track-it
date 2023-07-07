@@ -1,4 +1,4 @@
-import { Task } from "@src/types/Task";
+import type { Task } from "@src/types/Task";
 import { defineStore } from "pinia";
 
 type TaskStore = {

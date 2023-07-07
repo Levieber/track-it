@@ -1,5 +1,5 @@
-import { Project } from "@src/types/Project";
-import { Task as CreateTask } from "@src/types/Task";
+import type { Project } from "@src/types/Project";
+import type { Task as CreateTask } from "@src/types/Task";
 
 Cypress.Commands.add("createTask", (task) => {
   cy.clock();

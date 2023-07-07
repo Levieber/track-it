@@ -1,6 +1,6 @@
 import { createTestingPinia } from "@pinia/testing";
 import TaskList from "@src/screens/Tasks/patterns/TaskList.vue";
-import { Task } from "@src/types/Task";
+import type { Task } from "@src/types/Task";
 
 describe("<TaskList />", () => {
   it("should render a feedback when not have a task", () => {
