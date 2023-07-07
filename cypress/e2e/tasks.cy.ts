@@ -1,4 +1,4 @@
-import { Task } from "@src/types/Task";
+import type { Task } from "@src/types/Task";
 import { timerFormatter } from "@src/utils/timerFormatter";
 
 describe("Task - User Journey", () => {
@@ -62,7 +62,9 @@ describe("Task - User Journey", () => {
         });
 
         cy.get("@taskTitle").eq(0).should("have.text", task.editTitle);
-        cy.data("task-timer").eq(0).should("contain.text", timerFormatter(task.time + 15));
+        cy.data("task-timer")
+          .eq(0)
+          .should("contain.text", timerFormatter(task.time + 15));
       }
     });
   });

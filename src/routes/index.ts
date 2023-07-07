@@ -1,4 +1,5 @@
-import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
+import type { RouteRecordRaw} from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import TasksScreen from "@src/screens/Tasks/TasksScreen.vue";
 import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
 import TaskList from "@src/screens/Tasks/patterns/TaskList.vue";

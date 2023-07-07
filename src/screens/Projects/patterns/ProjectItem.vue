@@ -2,7 +2,7 @@
 import { useProjectStore } from "@src/stores/project";
 import type { Project } from "@src/types/Project";
 import { mapActions } from "pinia";
-import { PropType } from "vue";
+import type { PropType } from "vue";
 
 import IconEdit from "@src/components/icons/IconEdit.vue";
 import IconTrash from "@src/components/icons/IconTrash.vue";

@@ -1,4 +1,4 @@
-import { Project } from "@src/types/Project";
+import type { Project } from "@src/types/Project";
 import { defineStore } from "pinia";
 import { useTaskStore } from "./task";
 
