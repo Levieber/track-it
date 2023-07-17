@@ -29,15 +29,8 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-      - name: Build
-        run: pnpm run build
-
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: dist
+      - name: Typecheck
+        run: pnpm vue-tsc --noEmit
 
   tests-cypress:
     runs-on: ubuntu-latest
@@ -50,12 +43,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
-
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
         with:
@@ -64,6 +51,8 @@ jobs:
       - name: Run E2E tests
         uses: cypress-io/github-action@v5
         with:
+          build: pnpm run build
+          start: pnpm start
           record: true
           parallel: true
           group: 'E2E Tests'
@@ -74,6 +63,7 @@ jobs:
       - name: Run Component Testing
         uses: cypress-io/github-action@v5
         with:
+          start: pnpm start
           install: false
           component: true
           record: true
