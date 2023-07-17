@@ -52,7 +52,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           build: pnpm run build
-          start: pnpm start
+          start: pnpm run preview
           record: true
           parallel: true
           group: 'E2E Tests'
@@ -63,7 +63,6 @@ jobs:
       - name: Run Component Testing
         uses: cypress-io/github-action@v5
         with:
-          start: pnpm start
           install: false
           component: true
           record: true
