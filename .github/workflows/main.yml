@@ -29,126 +29,45 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-      - name: Build
-        run: pnpm run build
+      - name: Typecheck
+        run: pnpm vue-tsc --noEmit
 
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: dist
-
-  tests-e2e-firefox:
+  tests-cypress:
     runs-on: ubuntu-latest
     needs: install-lint
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3, 4, 5]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
 
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: Cypress run
+      - name: Run E2E tests
         uses: cypress-io/github-action@v5
         with:
+          build: pnpm run build
           start: pnpm run preview
-          browser: firefox
           record: true
+          parallel: true
+          group: 'E2E Tests'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  tests-e2e-chrome:
-    runs-on: ubuntu-latest
-    needs: install-lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
-
-      - name: Pnpm Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Cypress run
+      - name: Run Component Testing
         uses: cypress-io/github-action@v5
         with:
-          start: pnpm run preview
-          browser: chrome
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  tests-component-firefox:
-    runs-on: ubuntu-latest
-    needs: install-lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
-
-      - name: Pnpm Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          start: pnpm run preview
-          browser: firefox
+          install: false
           component: true
           record: true
+          parallel: true
+          group: 'Component Tests'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  tests-component-chrome:
-    runs-on: ubuntu-latest
-    needs: install-lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
-
-      - name: Pnpm Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          start: pnpm run preview
-          browser: chrome
-          component: true
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
