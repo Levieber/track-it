@@ -19,8 +19,26 @@ jobs:
           version: 8
           run_install: false
 
-      - name: Install deps
-        run: pnpm install --frozen-lockfile
+      - name: Cache Cypress binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Cache local node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-${{ github.ref }}-
+
+      - name: Cypress Install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
 
       - name: Format
         run: pnpm run format
@@ -28,7 +46,7 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-      - name: Typecheck
+      - name: Type-check
         run: pnpm vue-tsc --noEmit
 
   tests-cypress:
@@ -52,9 +70,17 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+            cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Restore local node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-${{ github.ref }}-
 
       - name: Run E2E tests
         uses: cypress-io/github-action@v5
@@ -63,7 +89,7 @@ jobs:
           start: pnpm run preview
           record: true
           parallel: true
-          group: 'E2E Tests'
+          group: "E2E Tests"
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,7 +101,7 @@ jobs:
           component: true
           record: true
           parallel: true
-          group: 'Component Tests'
+          group: "Component Tests"
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
