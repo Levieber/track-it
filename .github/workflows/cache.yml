@@ -1,4 +1,4 @@
-name: CI
+name: Cache
 
 on:
   push:
@@ -35,17 +35,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Cache local node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-${{ github.ref }}-
+            cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Cypress Install
         uses: cypress-io/github-action@v5
