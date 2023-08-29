@@ -48,12 +48,12 @@ export default {
     <div class="flex flex-wrap gap-3">
       <RouterLink
         data-cy="edit-task-link"
-        class="btn-info btn flex items-center gap-1"
+        class="btn btn-info flex items-center gap-1"
         :to="{ name: 'edit-task', params: { id: task.id } }"
       >
         <IconEdit /> Editar tarefa
       </RouterLink>
-      <button data-cy="delete-task-button" @click="deleteTask" class="btn-error btn flex items-center gap-1">
+      <button data-cy="delete-task-button" @click="deleteTask" class="btn btn-error flex items-center gap-1">
         <IconTrash /> Deletar tarefa
       </button>
     </div>

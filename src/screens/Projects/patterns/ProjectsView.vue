@@ -46,14 +46,14 @@ export default {
         data-cy="search-project"
         aria-label="Buscar tarefa"
         type="text"
-        class="input-bordered input"
+        class="input input-bordered"
         placeholder="Busque por projetos"
         v-model="search"
         v-if="projectStore.projects.length > 0"
       />
     </div>
     <div class="w-full max-w-4xl overflow-x-auto">
-      <table v-if="!isProjectListEmpty" class="table-zebra table">
+      <table v-if="!isProjectListEmpty" class="table table-zebra">
         <thead>
           <tr>
             <th class="text-sm">Nome</th>

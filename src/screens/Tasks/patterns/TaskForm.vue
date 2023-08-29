@@ -69,12 +69,12 @@ export default {
     <input
       v-model="taskTitle"
       :data-cy="id ? 'edit-task' : 'create-task'"
-      class="input-bordered input w-full max-w-md"
+      class="input input-bordered w-full max-w-md"
       type="text"
       :placeholder="placeholderText"
       aria-label="Criar tarefa"
     />
-    <select data-cy="link-project" v-model="project" class="select-bordered select w-full max-w-md">
+    <select data-cy="link-project" v-model="project" class="select select-bordered w-full max-w-md">
       <option value="" selected>Sem projeto</option>
       <option v-for="project of projectStore.projects" :key="project.id" :value="project.id">
         {{ project.name }}
@@ -82,9 +82,9 @@ export default {
     </select>
     <TaskTimerManager
       :initial-time="taskStore.findTask(String(id))?.time"
-      @timer-finish="(timeInSeconds: number) => time = timeInSeconds"
+      @timer-finish="(timeInSeconds: number) => (time = timeInSeconds)"
     />
-    <button data-cy="save-task-button" class="btn-accent btn-block btn max-w-lg text-black">
+    <button data-cy="save-task-button" class="btn btn-accent btn-block max-w-lg text-black">
       <IconSave /> Salvar
     </button>
   </form>

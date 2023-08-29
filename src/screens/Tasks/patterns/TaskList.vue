@@ -45,7 +45,7 @@ export default {
         data-cy="search-task"
         aria-label="Buscar tarefa"
         type="text"
-        class="input-bordered input"
+        class="input input-bordered"
         placeholder="Busque por uma tarefa"
         v-model="search"
         v-if="taskStore.tasks.length > 0"

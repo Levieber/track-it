@@ -5,10 +5,11 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vue-tsc && vite build",
+		"build": "vite build",
 		"preview": "vite preview",
-		"format": "prettier --write src/",
-		"lint": "eslint --fix \"src/**/*.{js,ts,vue}\"",
+		"format": "prettier --check src/",
+		"lint": "eslint \"src/**/*.{js,ts,vue}\"",
+		"type-check": "vue-tsc --noEmit",
 		"cy:open": "cypress open",
 		"cy:run": "cypress run"
 	},
