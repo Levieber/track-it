@@ -17,6 +17,11 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
+
+      - name: Install deps
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
       
       - name: Format Check
         run: pnpm run format
