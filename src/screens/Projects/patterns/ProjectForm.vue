@@ -59,9 +59,9 @@ export default {
       v-model="projectName"
       placeholder="Qual projeto deseja criar?"
       type="text"
-      class="input-bordered input w-full max-w-xl"
+      class="input input-bordered w-full max-w-xl"
     />
-    <button data-cy="save-project-button" class="btn-accent btn-block btn max-w-lg text-black">
+    <button data-cy="save-project-button" class="btn btn-accent btn-block max-w-lg text-black">
       <IconSave /> Salvar
     </button>
   </form>

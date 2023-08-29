@@ -44,12 +44,12 @@ export default {
     <td class="flex flex-wrap gap-2">
       <RouterLink
         data-cy="edit-project-link"
-        class="btn-info btn"
+        class="btn btn-info"
         :to="{ name: 'edit-project', params: { id: project.id } }"
       >
         <IconEdit /> Editar projeto
       </RouterLink>
-      <button data-cy="delete-project-button" @click="deleteProject" class="btn-error btn">
+      <button data-cy="delete-project-button" @click="deleteProject" class="btn btn-error">
         <IconTrash /> Deletar projeto
       </button>
     </td>

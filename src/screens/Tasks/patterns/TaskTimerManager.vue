@@ -54,7 +54,7 @@ export default {
       :disabled="timerRunning"
       @click="startTimer"
       type="button"
-      class="btn-success btn flex gap-2 text-black"
+      class="btn btn-success flex gap-2 text-black"
     >
       <IconPlay /> {{ initialTime || timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
@@ -63,7 +63,7 @@ export default {
       :disabled="!timerRunning"
       @click="stopTimer"
       type="button"
-      class="btn-error btn flex gap-2"
+      class="btn btn-error flex gap-2"
     >
       <IconPause /> Pausar
     </button>
