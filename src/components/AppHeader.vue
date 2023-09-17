@@ -1,21 +1,10 @@
-<script lang="ts">
+<script setup lang="ts">
 import IconTask from "./icons/IconTask.vue";
 import IconProject from "./icons/IconProject.vue";
 import { RouterLink } from "vue-router";
+import { useDarkMode } from "@src/composables/useDarkMode";
 
-export default {
-  data() {
-    return {
-      darkMode: matchMedia("(prefers-color-scheme: dark)").matches,
-    };
-  },
-  watch: {
-    darkMode(newDarkMode) {
-      document.documentElement.dataset.theme = newDarkMode ? "dark" : "light";
-    },
-  },
-  components: { RouterLink, IconTask, IconProject },
-};
+const darkMode = useDarkMode();
 </script>
 
 <template>
