@@ -1,31 +1,22 @@
-<script lang="ts">
+<script setup lang="ts">
 import { timerFormatter } from "@src/utils/timerFormatter";
 import IconClock from "./icons/IconClock.vue";
+import { defineProps } from "vue";
 
-export default {
-  props: {
-    timeInSeconds: {
-      type: Number,
-      default: 0,
-    },
-    withIcon: {
-      type: Boolean,
-      default: false,
-    },
+const { timeInSeconds, withIcon } = defineProps({
+  timeInSeconds: {
+    type: Number,
+    default: 0,
   },
-  computed: {
-    elapsedTime() {
-      const timeFormatted = timerFormatter(this.timeInSeconds);
-
-      return timeFormatted;
-    },
+  withIcon: {
+    type: Boolean,
+    default: false,
   },
-  components: { IconClock },
-};
+});
 </script>
 
 <template>
   <strong data-cy="timer" class="flex items-center justify-center gap-1 text-xl">
-    <IconClock data-cy="timer-icon" v-if="withIcon" />{{ elapsedTime }}
+    <IconClock data-cy="timer-icon" v-if="withIcon" />{{ timerFormatter(timeInSeconds) }}
   </strong>
 </template>
