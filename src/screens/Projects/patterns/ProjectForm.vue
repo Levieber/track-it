@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useProjectStore } from "@src/stores/project";
 import IconSave from "@src/components/icons/IconSave.vue";
-import { reactive, defineProps, onMounted } from "vue";
+import { reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const { id } = defineProps<{ id?: string }>();

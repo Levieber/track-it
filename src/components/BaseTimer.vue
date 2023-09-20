@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { timerFormatter } from "@src/utils/timerFormatter";
 import IconClock from "./icons/IconClock.vue";
-import { defineProps } from "vue";
 
 const { timeInSeconds, withIcon } = defineProps({
   timeInSeconds: {
