@@ -29,7 +29,7 @@ function startTimer() {
   timer.startTime = Math.floor(Date.now() / oneSecond) - timer.timeInSeconds;
   timer.id = setInterval(() => {
     updateTime();
-  });
+  }, oneSecond);
 }
 
 function stopTimer() {
