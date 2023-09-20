@@ -1,54 +1,51 @@
-<script lang="ts">
+<script setup lang="ts">
 import { useProjectStore } from "@src/stores/project";
 import IconSave from "@src/components/icons/IconSave.vue";
-import { mapStores } from "pinia";
+import { reactive, defineProps, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  components: { IconSave },
-  props: {
-    id: {
-      type: String,
-    },
-  },
-  data() {
-    return {
-      projectName: "",
-    };
-  },
-  computed: {
-    ...mapStores(useProjectStore),
-  },
-  methods: {
-    saveProject() {
-      if (this.projectName.trim() === "") {
-        alert("O nome do projeto não pode ser somente espaços!");
-        this.projectName = "";
-        return;
-      }
+const { id } = defineProps<{ id?: string }>();
+const { addProject, editProject, findProject } = useProjectStore();
 
-      if (this.id) {
-        this.projectStore.editProject(this.id, {
-          name: this.projectName,
-        });
-      } else {
-        this.projectStore.addProject({
-          id: crypto.randomUUID?.() || new Date().toISOString(),
-          name: this.projectName,
-        });
-      }
+const router = useRouter();
 
-      this.projectName = "";
-      this.$router.push({ name: "projects" });
-    },
-  },
-  mounted() {
-    if (this.id) {
-      const project = this.projectStore.findProject(String(this.id));
+const project = reactive({
+  name: "",
+});
 
-      this.projectName = project?.name ?? "";
-    }
-  },
-};
+function editProjectAction() {
+  editProject(String(id), {
+    name: project.name,
+  });
+}
+
+function createProjectAction() {
+  addProject({
+    id: crypto.randomUUID?.() || new Date().toISOString(),
+    name: project.name,
+  });
+}
+
+function saveProject() {
+  if (project.name.trim() === "") {
+    alert("O nome do projeto não pode ser somente espaços!");
+    project.name = "";
+    return;
+  }
+
+  if (id) {
+    editProjectAction();
+  } else {
+    createProjectAction();
+  }
+
+  project.name = "";
+  router.push({ name: "projects" });
+}
+
+onMounted(() => {
+  project.name = findProject(String(id))?.name ?? "";
+});
 </script>
 
 <template>
@@ -56,7 +53,7 @@ export default {
     <input
       :data-cy="id ? 'edit-project' : 'create-project'"
       required
-      v-model="projectName"
+      v-model="project.name"
       placeholder="Qual projeto deseja criar?"
       type="text"
       class="input input-bordered w-full max-w-xl"
