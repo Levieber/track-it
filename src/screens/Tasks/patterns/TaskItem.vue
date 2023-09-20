@@ -1,39 +1,25 @@
-<script lang="ts">
-import type { PropType } from "vue";
+<script setup lang="ts">
 import type { Task } from "@src/types/Task";
 import TaskTimer from "@src/components/BaseTimer.vue";
 import TaskBox from "@src/components/BaseBox.vue";
 import { RouterLink } from "vue-router";
 import IconEdit from "@src/components/icons/IconEdit.vue";
 import IconTrash from "@src/components/icons/IconTrash.vue";
-import { mapActions } from "pinia";
 import { useTaskStore } from "@src/stores/task";
 import { useProjectStore } from "@src/stores/project";
 
-export default {
-  props: {
-    task: {
-      type: Object as PropType<Task>,
-      required: true,
-    },
-  },
-  methods: {
-    ...mapActions(useTaskStore, {
-      delete: "deleteTask",
-    }),
-    ...mapActions(useProjectStore, {
-      getProject: "findProject",
-    }),
-    deleteTask() {
-      const deletionConfirmation = confirm(`Tem certeza de excluir a tarefa ${this.task.title}?`);
+const { deleteTask  } = useTaskStore();
+const { findProject } = useProjectStore();
 
-      if (deletionConfirmation && this.task.id) {
-        this.delete(this.task.id);
-      }
-    },
-  },
-  components: { TaskTimer, TaskBox, RouterLink, IconEdit, IconTrash },
-};
+const { task } = defineProps<{ task: Task }>();
+
+function deleteTaskAction() {
+  const deletionConfirmation = confirm(`Tem certeza de excluir a tarefa ${task.title}?`);
+
+  if (deletionConfirmation && task.id) {
+    deleteTask(task.id);
+  }
+}
 </script>
 
 <template>
@@ -42,7 +28,7 @@ export default {
       {{ task.title || "Tarefa sem título" }}
     </strong>
     <strong data-cy="task-project" v-if="task.project">
-      Projeto {{ getProject(task.project)?.name || "N/D" }}
+      Projeto {{ findProject(task.project)?.name || "N/D" }}
     </strong>
     <TaskTimer data-cy="task-timer" with-icon :time-in-seconds="task.time" />
     <div class="flex flex-wrap gap-3">
@@ -53,7 +39,7 @@ export default {
       >
         <IconEdit /> Editar tarefa
       </RouterLink>
-      <button data-cy="delete-task-button" @click="deleteTask" class="btn btn-error flex items-center gap-1">
+      <button data-cy="delete-task-button" @click="deleteTaskAction" class="btn btn-error flex items-center gap-1">
         <IconTrash /> Deletar tarefa
       </button>
     </div>
