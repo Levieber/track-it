@@ -1,35 +1,20 @@
-<script lang="ts">
-import { mapStores } from "pinia";
+<script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { useProjectStore } from "@src/stores/project";
-
 import IconPlus from "@src/components/icons/IconPlus.vue";
 import BaseBox from "@src/components/BaseBox.vue";
 import ProjectItem from "./ProjectItem.vue";
+import { computed, ref } from "vue";
 
-export default {
-  components: {
-    RouterLink,
-    BaseBox,
-    IconPlus,
-    ProjectItem,
-  },
-  data() {
-    return {
-      search: "",
-    };
-  },
-  computed: {
-    ...mapStores(useProjectStore),
-    isProjectListEmpty() {
-      return this.projectStore.projects.length === 0;
-    },
-    filteredProjects() {
-      const query = new RegExp(this.search, "i");
-      return this.projectStore.projects.filter((p) => query.test(p.name));
-    },
-  },
-};
+const search = ref("");
+
+const { projects } = useProjectStore();
+
+const isProjectListEmpty = computed(() => projects.length <= 0);
+const filteredProjects = computed(() => {
+  const query = new RegExp(search.value, "i");
+  return projects.filter((p) => query.test(p.name));
+});
 </script>
 
 <template>
@@ -49,7 +34,7 @@ export default {
         class="input input-bordered"
         placeholder="Busque por projetos"
         v-model="search"
-        v-if="projectStore.projects.length > 0"
+        v-if="!isProjectListEmpty"
       />
     </div>
     <div class="w-full max-w-4xl overflow-x-auto">
