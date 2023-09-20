@@ -1,11 +1,19 @@
 import TaskTimerManager from "@src/screens/Tasks/patterns/TaskTimerManager.vue";
+import { reactive } from "vue";
 
 describe("<TaskTimerManager />", () => {
   it("should have the start button disabled when the timer start", () => {
     cy.mount(TaskTimerManager, {
-      data() {
+      setup() {
+        const timer = reactive({
+          id: 0,
+          timeInSeconds: 0,
+          startTime: 0,
+          running: true,
+        });
+
         return {
-          timerRunning: true,
+          timer,
         };
       },
     });
@@ -14,13 +22,7 @@ describe("<TaskTimerManager />", () => {
   });
 
   it("should have the stop button disabled when the timer not started", () => {
-    cy.mount(TaskTimerManager, {
-      data() {
-        return {
-          timerRunning: false,
-        };
-      },
-    });
+    cy.mount(TaskTimerManager);
 
     cy.data("stop-timer").should("be.visible").and("be.disabled");
   });

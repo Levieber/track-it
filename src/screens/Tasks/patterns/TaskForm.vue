@@ -7,7 +7,7 @@ import { computed, onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 const { editTask, addTask, findTask } = useTaskStore();
-const { projects, findProject } = useProjectStore();
+const { projects } = useProjectStore();
 
 const router = useRouter();
 
@@ -56,7 +56,7 @@ onMounted(() => {
     if (storagedTask) {
       task.title = storagedTask.title;
       task.time = storagedTask.time;
-      task.project = (storagedTask.project && findProject(task.project)?.id) ?? "";
+      task.project = storagedTask.project || "";
     }
   }
 });

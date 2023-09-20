@@ -27,8 +27,8 @@ function deleteTaskAction() {
     <strong data-cy="task-title">
       {{ task.title || "Tarefa sem título" }}
     </strong>
-    <strong data-cy="task-project" v-if="task.project">
-      Projeto {{ findProject(task.project)?.name || "N/D" }}
+    <strong data-cy="task-project">
+      Projeto {{ task.project ? findProject(task.project)?.name : "N/D" }}
     </strong>
     <TaskTimer data-cy="task-timer" with-icon :time-in-seconds="task.time" />
     <div class="flex flex-wrap gap-3">
