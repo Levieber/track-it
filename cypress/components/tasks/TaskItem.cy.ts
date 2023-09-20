@@ -16,6 +16,14 @@ describe("<TaskItem />", () => {
       props: {
         task,
       },
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: cy.spy,
+            stubActions: false,
+          }),
+        ],
+      },
     });
 
     cy.data("task-title").eq(0).should("have.text", task.title);
@@ -41,6 +49,14 @@ describe("<TaskItem />", () => {
     cy.mount(TaskItem, {
       props: {
         task,
+      },
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: cy.spy,
+            stubActions: false,
+          }),
+        ],
       },
     });
 
@@ -109,7 +125,7 @@ describe("<TaskItem />", () => {
 
     cy.data("task-title").should("be.visible").and("contain.text", task.title);
     cy.data("task-timer").should("be.visible").and("contain.text", formattedTimeString);
-    cy.data("task-project").should("not.exist");
+    cy.data("task-project").should("be.visible").and("contain.text", "Projeto N/D");
     cy.data("edit-task-link").should("be.visible");
     cy.data("delete-task-button").should("be.visible");
   });

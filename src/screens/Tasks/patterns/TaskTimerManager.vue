@@ -1,66 +1,61 @@
-<script lang="ts">
+<script setup lang="ts">
 import TaskTimer from "@src/components/BaseTimer.vue";
 import IconPlay from "@src/components/icons/IconPlay.vue";
 import IconPause from "@src/components/icons/IconPause.vue";
+import { reactive } from "vue";
 
-export default {
-  components: {
-    TaskTimer,
-    IconPlay,
-    IconPause,
-  },
-  props: {
-    initialTime: {
-      type: Number,
-    },
-  },
-  emits: ["timerFinish"],
-  data() {
-    return {
-      timeInSeconds: this.initialTime || 0,
-      startTime: 0,
-      timerId: 0,
-      timerRunning: false,
-    };
-  },
-  methods: {
-    startTimer() {
-      this.timerRunning = true;
-      this.startTime = Math.floor(Date.now() / 1000) - this.timeInSeconds;
-      this.timerId = setInterval(() => {
-        this.updateTime();
-      }, 1000); // 1 second
-    },
-    stopTimer() {
-      this.timerRunning = false;
-      clearInterval(this.timerId);
-      this.$emit("timerFinish", this.timeInSeconds);
-    },
-    updateTime() {
-      const now = Math.floor(Date.now() / 1000);
-      this.timeInSeconds = now - +this.startTime;
-    },
-  },
-};
+const { initialTime } = defineProps<{ initialTime?: number }>();
+
+const oneSecond = 1000;
+
+const timer = reactive({
+  id: 0,
+  timeInSeconds: initialTime || 0,
+  startTime: 0,
+  running: false,
+});
+
+const emit = defineEmits<{
+  timerFinish: [timeInSeconds: number];
+}>();
+
+function updateTime() {
+  const now = Math.floor(Date.now() / oneSecond);
+  timer.timeInSeconds = now - +timer.startTime;
+}
+
+function startTimer() {
+  timer.running = true;
+  timer.startTime = Math.floor(Date.now() / oneSecond) - timer.timeInSeconds;
+  timer.id = setInterval(() => {
+    updateTime();
+  }, oneSecond);
+}
+
+function stopTimer() {
+  timer.running = false;
+  clearInterval(timer.id);
+  emit("timerFinish", timer.timeInSeconds);
+}
 </script>
 
 <template>
   <section>
-    <TaskTimer :time-in-seconds="timeInSeconds" />
+    <TaskTimer :time-in-seconds="timer.timeInSeconds" />
   </section>
   <section class="flex flex-wrap justify-center gap-3">
     <button
       data-cy="start-timer"
-      :disabled="timerRunning"
+      :disabled="timer.running"
       @click="startTimer"
       type="button"
       class="btn btn-success flex gap-2 text-black"
     >
-      <IconPlay /> {{ initialTime || timeInSeconds > 0 ? "Continuar" : "Começar" }}
+      <IconPlay /> {{ initialTime || timer.timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
     <button
       data-cy="stop-timer"
-      :disabled="!timerRunning"
+      :disabled="!timer.running"
       @click="stopTimer"
       type="button"
       class="btn btn-error flex gap-2"
