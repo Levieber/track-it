@@ -1,34 +1,21 @@
-<script lang="ts">
+<script setup lang="ts">
 import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
 import TaskBox from "@src/components/BaseBox.vue";
-import { mapStores } from "pinia";
 import { useTaskStore } from "@src/stores/task";
 import { RouterLink } from "vue-router";
 import IconPlus from "@src/components/icons/IconPlus.vue";
+import { computed, ref } from "vue";
 
-export default {
-  components: {
-    TaskItem,
-    TaskBox,
-    RouterLink,
-    IconPlus,
-  },
-  data() {
-    return {
-      search: "",
-    };
-  },
-  computed: {
-    ...mapStores(useTaskStore),
-    isTaskListEmpty() {
-      return this.taskStore.tasks.length === 0;
-    },
-    taskFiltered() {
-      const query = new RegExp(this.search, "i");
-      return this.taskStore.tasks.filter((t) => query.test(t.title));
-    },
-  },
-};
+const search = ref("");
+
+const { tasks } = useTaskStore();
+
+const filteredTasks = computed(() => {
+  const query = new RegExp(search.value, "i");
+  return tasks.filter((t) => query.test(t.title));
+});
+
+const isTaskListEmpty = computed(() => tasks.length <= 0);
 </script>
 
 <template>
@@ -48,11 +35,11 @@ export default {
         class="input input-bordered"
         placeholder="Busque por uma tarefa"
         v-model="search"
-        v-if="taskStore.tasks.length > 0"
+        v-if="!isTaskListEmpty"
       />
     </div>
     <ul class="flex w-full max-w-4xl flex-col gap-3" role="list">
-      <li v-for="task of taskFiltered" :key="task.id">
+      <li v-for="task of filteredTasks" :key="task.id">
         <TaskItem :task="task" />
       </li>
       <li v-if="isTaskListEmpty">
