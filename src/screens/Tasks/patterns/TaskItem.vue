@@ -8,7 +8,7 @@ import IconTrash from "@src/components/icons/IconTrash.vue";
 import { useTaskStore } from "@src/stores/task";
 import { useProjectStore } from "@src/stores/project";
 
-const { deleteTask  } = useTaskStore();
+const { deleteTask } = useTaskStore();
 const { findProject } = useProjectStore();
 
 const { task } = defineProps<{ task: Task }>();
@@ -39,7 +39,11 @@ function deleteTaskAction() {
       >
         <IconEdit /> Editar tarefa
       </RouterLink>
-      <button data-cy="delete-task-button" @click="deleteTaskAction" class="btn btn-error flex items-center gap-1">
+      <button
+        data-cy="delete-task-button"
+        @click="deleteTaskAction"
+        class="btn btn-error flex items-center gap-1"
+      >
         <IconTrash /> Deletar tarefa
       </button>
     </div>
