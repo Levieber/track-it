@@ -144,4 +144,51 @@ describe("Project - User Journey", () => {
 
     cy.data("project-tasks-quantity").should("contain.text", tasks.length);
   });
+
+  it("should allow to delete the project with related tasks without delete the tasks", () => {
+    const project = {
+      name: "Javascript Course",
+    };
+
+    const tasks = [
+      {
+        title: "Operators And Expression Class",
+        time: 250,
+        project: project.name,
+      },
+      {
+        title: "Loops Class",
+        time: 200,
+        project: project.name,
+      },
+    ];
+
+    cy.visit("/");
+
+    cy.get("a").contains("projetos", { matchCase: false }).as("projectsPageLink");
+
+    cy.get("@projectsPageLink").click();
+    cy.data("create-project-link").click();
+    cy.createProject(project);
+
+    cy.get("a").contains("tarefas", { matchCase: false }).click();
+
+    for (const task of tasks) {
+      cy.data("create-task-link").click();
+      cy.createTask(task);
+    }
+
+    cy.get("@projectsPageLink").click();
+
+    cy.data("project-tasks-quantity").should("contain.text", tasks.length);
+    
+    cy.data("delete-project-button").eq(0).click()
+
+    cy.get("tbody").should("not.exist")
+
+    cy.get("a").contains("tarefas", { matchCase: false }).click()
+    cy.data("task-project").each((element) => {
+      cy.wrap(element).should("contain.text", "Projeto N/D")
+    })
+  })
 });
