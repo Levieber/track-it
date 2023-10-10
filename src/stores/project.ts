@@ -24,7 +24,11 @@ export const useProjectStore = defineStore("project", {
       this.projects[index] = { ...this.projects[index], ...newContent };
     },
     deleteProject(projectId: string) {
+      const taskStore = useTaskStore();
       const index = this.projects.findIndex((t) => t.id === projectId);
+      taskStore.tasks = taskStore.tasks.map((task) =>
+        task.project === this.projects[index].id ? { ...task, project: undefined } : task,
+      );
       this.projects.splice(index, 1);
     },
     getTotalTasks(projectId: string) {
