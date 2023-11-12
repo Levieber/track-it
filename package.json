@@ -14,7 +14,7 @@
 		"cy:run": "cypress run"
 	},
 	"dependencies": {
-		"daisyui": "^3.9.3",
+		"daisyui": "^4.0.0",
 		"pinia": "^2.1.7",
 		"vue": "^3.3.6",
 		"vue-router": "^4.2.5"
