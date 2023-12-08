@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es2021": true,
@@ -8,6 +9,8 @@
     "eslint:recommended",
     "plugin:vue/vue3-essential",
     "plugin:@typescript-eslint/recommended",
+    "plugin:cypress/recommended",
+    "plugin:chai-friendly/recommended",
     "prettier"
   ],
   "overrides": [],

@@ -1,5 +1,5 @@
 import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
-import { hasElementOverflowX } from "../../utils/hasElementOverflowX";
+import { hasElementOverflowX } from "@tests/support/hasElementOverflowX";
 import { createTestingPinia } from "@pinia/testing";
 
 describe("<TaskItem />", () => {

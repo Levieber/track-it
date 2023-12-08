@@ -13,6 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Pnpm Setup
         uses: pnpm/action-setup@v2
         with:
@@ -22,15 +26,12 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           runTests: false
-      
-      - name: Format Check
-        run: pnpm run format
 
       - name: Code Lint
         run: pnpm run lint
 
       - name: Type Check
-        run: pnpm run type-check
+        run: pnpm run type:check
 
       - name: Run E2E tests
         uses: cypress-io/github-action@v5

@@ -98,7 +98,9 @@ describe("Project - User Journey", () => {
 
     cy.get("tbody").find("tr").should("have.length", 2);
 
-    cy.get("@searchInput").clear().type("test");
+    cy.get("@searchInput").clear();
+
+    cy.get("@searchInput").type("test");
 
     cy.get("tbody").find("tr").should("have.length", 1);
 
@@ -181,14 +183,14 @@ describe("Project - User Journey", () => {
     cy.get("@projectsPageLink").click();
 
     cy.data("project-tasks-quantity").should("contain.text", tasks.length);
-    
-    cy.data("delete-project-button").eq(0).click()
 
-    cy.get("tbody").should("not.exist")
+    cy.data("delete-project-button").eq(0).click();
 
-    cy.get("a").contains("tarefas", { matchCase: false }).click()
+    cy.get("tbody").should("not.exist");
+
+    cy.get("a").contains("tarefas", { matchCase: false }).click();
     cy.data("task-project").each((element) => {
-      cy.wrap(element).should("contain.text", "Projeto N/D")
-    })
-  })
+      cy.wrap(element).should("contain.text", "Projeto N/D");
+    });
+  });
 });
