@@ -27,7 +27,7 @@ describe("Task - User Journey", () => {
 
         const formattedTimeString = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
           2,
-          "0"
+          "0",
         )}:${String(seconds).padStart(2, "0")}`;
 
         cy.data("task-timer").eq(0).contains(formattedTimeString);
@@ -109,7 +109,9 @@ describe("Task - User Journey", () => {
 
     cy.get("li").should("have.length", 2);
 
-    cy.get("@searchInput").clear().type("test");
+    cy.get("@searchInput").clear();
+
+    cy.get("@searchInput").type("test");
 
     cy.get("li").should("have.length", 1);
 
