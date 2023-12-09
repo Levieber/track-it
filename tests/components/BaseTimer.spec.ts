@@ -1,17 +1,22 @@
 import TaskTimer from "@src/components/BaseTimer.vue";
+import { createMount } from "@tests/components/support/mount";
 
-describe("<TaskTimer />", () => {
+const mount = createMount();
+
+describe("<BaseTimer />", () => {
   it("should render seconds properly", () => {
     const timeInSeconds = 35;
     const formattedTimeString = `00:00:${String(timeInSeconds).padStart(2, "0")}`;
 
-    cy.mount(TaskTimer, {
+    const { getByTestId } = mount(TaskTimer, {
       props: {
         timeInSeconds,
       },
     });
 
-    cy.data("timer").contains(formattedTimeString);
+    const timer = getByTestId("timer");
+
+    expect(timer).toHaveTextContent(formattedTimeString);
   });
 
   it("should render minutes properly", () => {
@@ -19,13 +24,15 @@ describe("<TaskTimer />", () => {
     const timeInSeconds = 60 * minutes;
     const formattedTimeString = `00:${String(minutes).padStart(2, "0")}:00`;
 
-    cy.mount(TaskTimer, {
+    const { getByTestId } = mount(TaskTimer, {
       props: {
         timeInSeconds,
       },
     });
 
-    cy.data("timer").contains(formattedTimeString);
+    const timer = getByTestId("timer");
+
+    expect(timer).toHaveTextContent(formattedTimeString);
   });
 
   it("should render hours properly", () => {
@@ -33,13 +40,15 @@ describe("<TaskTimer />", () => {
     const timeInSeconds = 60 * 60 * hours;
     const formattedTimeString = `${String(hours).padStart(2, "0")}:00:00`;
 
-    cy.mount(TaskTimer, {
+    const { getByTestId } = mount(TaskTimer, {
       props: {
         timeInSeconds,
       },
     });
 
-    cy.data("timer").contains(formattedTimeString);
+    const timer = getByTestId("timer");
+
+    expect(timer).toHaveTextContent(formattedTimeString);
   });
 
   it("should render more than 24 hours properly", () => {
@@ -47,25 +56,29 @@ describe("<TaskTimer />", () => {
     const timeInSeconds = 60 * 60 * hours;
     const formattedTimeString = `${hours}:00:00`;
 
-    cy.mount(TaskTimer, {
+    const { getByTestId } = mount(TaskTimer, {
       props: {
         timeInSeconds,
       },
     });
 
-    cy.data("timer").contains(formattedTimeString);
+    const timer = getByTestId("timer");
+
+    expect(timer).toHaveTextContent(formattedTimeString);
   });
 
   it("should render the icon properly", () => {
     const timeInSeconds = 35;
 
-    cy.mount(TaskTimer, {
+    const { getByTestId } = mount(TaskTimer, {
       props: {
         timeInSeconds,
         withIcon: true,
       },
     });
 
-    cy.data("timer-icon").should("be.visible");
+    const timerIcon = getByTestId("timer-icon");
+
+    expect(timerIcon).toBeVisible();
   });
 });

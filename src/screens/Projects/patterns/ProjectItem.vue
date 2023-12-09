@@ -17,20 +17,20 @@ function deleteProjectAction() {
 </script>
 
 <template>
-  <tr>
-    <td data-cy="project-name" class="text-xl">
+  <tr data-test="project-item">
+    <td data-test="project-name" class="text-xl">
       {{ project.name }}
     </td>
-    <td data-cy="project-tasks-quantity" class="text-xl">{{ getTotalTasks(project.id) }}</td>
+    <td data-test="project-tasks-quantity" class="text-xl">{{ getTotalTasks(project.id) }}</td>
     <td class="flex flex-wrap gap-2">
       <RouterLink
-        data-cy="edit-project-link"
+        data-test="edit-project-link"
         class="btn btn-info"
         :to="{ name: 'edit-project', params: { id: project.id } }"
       >
         <IconEdit /> Editar projeto
       </RouterLink>
-      <button data-cy="delete-project-button" @click="deleteProjectAction" class="btn btn-error">
+      <button data-test="delete-project-button" @click="deleteProjectAction" class="btn btn-error">
         <IconTrash /> Deletar projeto
       </button>
     </td>

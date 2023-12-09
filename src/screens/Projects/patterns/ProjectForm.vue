@@ -28,7 +28,7 @@ function createProjectAction() {
 
 function saveProject() {
   if (project.name.trim() === "") {
-    alert("O nome do projeto não pode ser somente espaços!");
+    alert("O nome do projeto não pode ser vazio!");
     project.name = "";
     return;
   }
@@ -51,14 +51,14 @@ onMounted(() => {
 <template>
   <form @submit.prevent="saveProject" class="flex flex-col flex-wrap items-center justify-center gap-3">
     <input
-      :data-cy="id ? 'edit-project' : 'create-project'"
+      :data-test="id ? 'edit-project' : 'create-project'"
       required
       v-model="project.name"
       placeholder="Qual projeto deseja criar?"
       type="text"
       class="input input-bordered w-full max-w-xl"
     />
-    <button data-cy="save-project-button" class="btn btn-accent btn-block max-w-lg text-black">
+    <button data-test="save-project-button" class="btn btn-accent btn-block max-w-lg text-black">
       <IconSave /> Salvar
     </button>
   </form>

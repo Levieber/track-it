@@ -15,7 +15,7 @@ const { timeInSeconds, withIcon } = defineProps({
 </script>
 
 <template>
-  <strong data-cy="timer" class="flex items-center justify-center gap-1 text-xl">
-    <IconClock data-cy="timer-icon" v-if="withIcon" />{{ timerFormatter(timeInSeconds) }}
+  <strong data-test="timer" class="flex items-center justify-center gap-1 text-xl">
+    <IconClock data-test="timer-icon" v-if="withIcon" />{{ timerFormatter(timeInSeconds) }}
   </strong>
 </template>

@@ -66,13 +66,13 @@ onMounted(() => {
   <form @submit.prevent="saveTask" class="flex flex-col flex-wrap items-center justify-center gap-3">
     <input
       v-model="task.title"
-      :data-cy="id ? 'edit-task' : 'create-task'"
+      :data-test="id ? 'edit-task' : 'create-task'"
       class="input input-bordered w-full max-w-md"
       type="text"
       :placeholder="placeholderText"
       aria-label="Criar tarefa"
     />
-    <select data-cy="link-project" v-model="task.project" class="select select-bordered w-full max-w-md">
+    <select data-test="link-project" v-model="task.project" class="select select-bordered w-full max-w-md">
       <option value="" selected>Sem projeto</option>
       <option v-for="project of projects" :key="project.id" :value="project.id">
         {{ project.name }}
@@ -82,7 +82,7 @@ onMounted(() => {
       :initial-time="findTask(String(id))?.time"
       @timer-finish="(timeInSeconds: number) => (task.time = timeInSeconds)"
     />
-    <button data-cy="save-task-button" class="btn btn-accent btn-block max-w-lg text-black">
+    <button data-test="save-task-button" class="btn btn-accent btn-block max-w-lg text-black">
       <IconSave /> Salvar
     </button>
   </form>
