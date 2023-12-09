@@ -29,7 +29,7 @@ const darkMode = useDarkMode();
       </RouterLink>
     </nav>
     <label class="swap swap-rotate">
-      <input data-cy="toggle-theme" type="checkbox" v-model="darkMode" />
+      <input data-test="toggle-theme" type="checkbox" v-model="darkMode" />
       <span class="sr-only">Modo escuro</span>
 
       <svg class="swap-on h-10 w-10 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

@@ -22,14 +22,14 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
   <section class="flex flex-col items-center gap-5">
     <div class="flex flex-wrap justify-center gap-3">
       <RouterLink
-        data-cy="create-task-link"
+        data-test="create-task-link"
         class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
         :to="{ name: 'new-task' }"
       >
         <IconPlus /> Criar tarefa
       </RouterLink>
       <input
-        data-cy="search-task"
+        data-test="search-task"
         aria-label="Buscar tarefa"
         type="text"
         class="input input-bordered"
@@ -42,7 +42,7 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
       <li v-for="task of filteredTasks" :key="task.id">
         <TaskItem :task="task" />
       </li>
-      <li v-if="isTaskListEmpty">
+      <li data-test="empty-list-feedback" v-if="isTaskListEmpty">
         <TaskBox>Você não está muito produtivo hoje :( </TaskBox>
       </li>
     </ul>

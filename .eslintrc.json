@@ -9,11 +9,20 @@
     "eslint:recommended",
     "plugin:vue/vue3-essential",
     "plugin:@typescript-eslint/recommended",
-    "plugin:cypress/recommended",
-    "plugin:chai-friendly/recommended",
     "prettier"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": "tests/components/**.ts",
+      "extends": ["plugin:vitest/recommended"],
+      "plugins": ["vitest"]
+    },
+    {
+      "files": "tests/e2e/**.ts",
+      "extends": ["plugin:cypress/recommended", "plugin:chai-friendly/recommended"],
+      "plugins": ["vitest"]
+    }
+  ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser",

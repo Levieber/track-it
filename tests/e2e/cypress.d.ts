@@ -6,7 +6,7 @@ declare global {
     interface Chainable {
       mount: typeof mount;
       /**
-       * Custom command to select DOM element by data-cy or data-test attributes.
+       * Custom command to select DOM element by data-cy, data-test or any data attributes.
        * @param type @default "cy"
        * @example
        * 	cy.data("example")

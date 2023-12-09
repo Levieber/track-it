@@ -21,14 +21,14 @@ const filteredProjects = computed(() => {
   <section class="flex flex-col items-center gap-5">
     <div class="flex gap-3">
       <RouterLink
-        data-cy="create-project-link"
+        data-test="create-project-link"
         class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
         :to="{ name: 'new-project' }"
       >
         <IconPlus /> Criar projeto
       </RouterLink>
       <input
-        data-cy="search-project"
+        data-test="search-project"
         aria-label="Buscar tarefa"
         type="text"
         class="input input-bordered"
@@ -50,7 +50,7 @@ const filteredProjects = computed(() => {
           <ProjectItem v-for="project of filteredProjects" :key="project.id" :project="project" />
         </tbody>
       </table>
-      <BaseBox role="alert" class="w-full" v-else>Você ainda não tem um projeto, tente criar um.</BaseBox>
+      <BaseBox data-test="empty-list-feedback" role="alert" class="w-full" v-else>Você ainda não tem um projeto, tente criar um.</BaseBox>
     </div>
   </section>
 </template>

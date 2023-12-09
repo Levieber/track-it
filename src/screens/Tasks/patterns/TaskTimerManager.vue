@@ -45,7 +45,7 @@ function stopTimer() {
   </section>
   <section class="flex flex-wrap justify-center gap-3">
     <button
-      data-cy="start-timer"
+      data-test="start-timer"
       :disabled="timer.running"
       @click="startTimer"
       type="button"
@@ -54,7 +54,7 @@ function stopTimer() {
       <IconPlay /> {{ initialTime || timer.timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
     <button
-      data-cy="stop-timer"
+      data-test="stop-timer"
       :disabled="!timer.running"
       @click="stopTimer"
       type="button"

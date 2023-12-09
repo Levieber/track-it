@@ -57,6 +57,6 @@ Cypress.Commands.add("editProject", (newContent) => {
   cy.data("save-project-button").click();
 });
 
-Cypress.Commands.add("data", (value, type = "cy") => {
+Cypress.Commands.add("data", (value, type = "test") => {
   return cy.get(`[data-${type}=${value}]`);
 });
