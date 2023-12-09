@@ -91,7 +91,7 @@ describe("<ProjectForm/>", () => {
       name: "Cypress Course",
     };
 
-    findProjectMock.mockReturnValue(toEditProject)
+    findProjectMock.mockReturnValue(toEditProject);
 
     const { getByTestId } = mount(ProjectForm, {
       props: {

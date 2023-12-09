@@ -50,7 +50,9 @@ const filteredProjects = computed(() => {
           <ProjectItem v-for="project of filteredProjects" :key="project.id" :project="project" />
         </tbody>
       </table>
-      <BaseBox data-test="empty-list-feedback" role="alert" class="w-full" v-else>Você ainda não tem um projeto, tente criar um.</BaseBox>
+      <BaseBox data-test="empty-list-feedback" role="alert" class="w-full" v-else>
+        Você ainda não tem um projeto, tente criar um.
+      </BaseBox>
     </div>
   </section>
 </template>
