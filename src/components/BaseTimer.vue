@@ -16,6 +16,6 @@ const { timeInSeconds, withIcon } = defineProps({
 
 <template>
   <strong data-test="timer" class="flex items-center justify-center gap-1 text-xl">
-    <IconClock data-test="timer-icon" v-if="withIcon" />{{ timerFormatter(timeInSeconds) }}
+    <IconClock v-if="withIcon" data-test="timer-icon" />{{ timerFormatter(timeInSeconds) }}
   </strong>
 </template>

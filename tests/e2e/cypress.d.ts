@@ -13,7 +13,7 @@ declare global {
        * 	cy.data("example2", "test")
        * 	cy.data("example3", "another")
        */
-      data(value: string, type?: "cy" | "test" | "string"): Chainable<JQuery<HTMLElement>>;
+      data(value: string, type?: "cy" | "test" | "string"): Chainable<JQuery>;
       /**
        * Custom command to create a task on UI
        * @param task

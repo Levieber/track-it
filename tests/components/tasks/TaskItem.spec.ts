@@ -22,16 +22,16 @@ describe("<TaskItem />", () => {
     };
     const formattedTimeString = "04:10:00";
 
-    const { getByTestId } = mount(TaskItem, {
+    const wrapper = mount(TaskItem, {
       props: {
         task,
       },
     });
 
-    const taskTitle = getByTestId("task-title");
-    const taskTimer = getByTestId("task-timer");
-    const editTaskLink = getByTestId("edit-task-link");
-    const deleteTaskButton = getByTestId("delete-task-button");
+    const taskTitle = wrapper.getByTestId("task-title");
+    const taskTimer = wrapper.getByTestId("task-timer");
+    const editTaskLink = wrapper.getByTestId("edit-task-link");
+    const deleteTaskButton = wrapper.getByTestId("delete-task-button");
 
     expect(hasElementOverflowX(document).value).toBe(false);
     expect(taskTitle).toBeVisible();
@@ -51,16 +51,16 @@ describe("<TaskItem />", () => {
     const defaultText = "Tarefa sem título";
     const formattedTimeString = "00:01:30";
 
-    const { getByTestId } = mount(TaskItem, {
+    const wrapper = mount(TaskItem, {
       props: {
         task,
       },
     });
 
-    const taskTitle = getByTestId("task-title");
-    const taskTimer = getByTestId("task-timer");
-    const editTaskLink = getByTestId("edit-task-link");
-    const deleteTaskButton = getByTestId("delete-task-button");
+    const taskTitle = wrapper.getByTestId("task-title");
+    const taskTimer = wrapper.getByTestId("task-timer");
+    const editTaskLink = wrapper.getByTestId("edit-task-link");
+    const deleteTaskButton = wrapper.getByTestId("delete-task-button");
 
     expect(taskTitle).toBeVisible();
     expect(taskTimer).toBeVisible();
@@ -88,17 +88,17 @@ describe("<TaskItem />", () => {
 
     findProjectMock.mockReturnValue(project);
 
-    const { getByTestId } = mount(TaskItem, {
+    const wrapper = mount(TaskItem, {
       props: {
         task,
       },
     });
 
-    const taskTitle = getByTestId("task-title");
-    const taskTimer = getByTestId("task-timer");
-    const editTaskLink = getByTestId("edit-task-link");
-    const deleteTaskButton = getByTestId("delete-task-button");
-    const taskProject = getByTestId("task-project");
+    const taskTitle = wrapper.getByTestId("task-title");
+    const taskTimer = wrapper.getByTestId("task-timer");
+    const editTaskLink = wrapper.getByTestId("edit-task-link");
+    const deleteTaskButton = wrapper.getByTestId("delete-task-button");
+    const taskProject = wrapper.getByTestId("task-project");
 
     expect(taskProject).toBeVisible();
     expect(taskTitle).toBeVisible();
@@ -120,16 +120,16 @@ describe("<TaskItem />", () => {
 
     const formattedTimeString = "00:01:00";
 
-    const { getByTestId } = mount(TaskItem, {
+    const wrapper = mount(TaskItem, {
       props: {
         task,
       },
     });
 
-    const taskTitle = getByTestId("task-title");
-    const taskTimer = getByTestId("task-timer");
-    const editTaskLink = getByTestId("edit-task-link");
-    const deleteTaskButton = getByTestId("delete-task-button");
+    const taskTitle = wrapper.getByTestId("task-title");
+    const taskTimer = wrapper.getByTestId("task-timer");
+    const editTaskLink = wrapper.getByTestId("edit-task-link");
+    const deleteTaskButton = wrapper.getByTestId("delete-task-button");
 
     expect(taskTitle).toBeVisible();
     expect(taskTimer).toBeVisible();

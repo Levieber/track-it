@@ -29,20 +29,20 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
         <IconPlus /> Criar tarefa
       </RouterLink>
       <input
+        v-if="!isTaskListEmpty"
+        v-model="search"
         data-test="search-task"
         aria-label="Buscar tarefa"
         type="text"
         class="input input-bordered"
         placeholder="Busque por uma tarefa"
-        v-model="search"
-        v-if="!isTaskListEmpty"
       />
     </div>
     <ul class="flex w-full max-w-4xl flex-col gap-3" role="list">
       <li v-for="task of filteredTasks" :key="task.id">
         <TaskItem :task="task" />
       </li>
-      <li data-test="empty-list-feedback" v-if="isTaskListEmpty">
+      <li v-if="isTaskListEmpty" data-test="empty-list-feedback">
         <TaskBox>Você não está muito produtivo hoje :( </TaskBox>
       </li>
     </ul>

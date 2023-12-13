@@ -58,32 +58,32 @@ describe("<ProjectForm/>", () => {
       name: "Vue 3 Course",
     };
 
-    const { getByTestId } = mount(ProjectForm);
+    const wrapper = mount(ProjectForm);
 
     await createProject(project);
 
     expect(addProjectMock).toHaveBeenCalled();
     expect(addProjectMock).toHaveBeenCalledWith(expect.objectContaining(project));
 
-    expect(getByTestId("create-project")).toHaveValue("");
+    expect(wrapper.getByTestId("create-project")).toHaveValue("");
   });
 
   it("should not allow to create a project without a name", async () => {
-    const { getByTestId } = mount(ProjectForm);
+    const wrapper = mount(ProjectForm);
 
     await createProject({ name: "" });
 
     expect(addProjectMock).not.toHaveBeenCalled();
-    expect(getByTestId("create-project")).toHaveValue("");
+    expect(wrapper.getByTestId("create-project")).toHaveValue("");
   });
 
   it("should not allow to create a project with only spaces name", async () => {
-    const { getByTestId } = mount(ProjectForm);
+    const wrapper = mount(ProjectForm);
 
     await createProject({ name: "    " });
 
     expect(addProjectMock).not.toHaveBeenCalled();
-    expect(getByTestId("create-project")).toHaveValue("");
+    expect(wrapper.getByTestId("create-project")).toHaveValue("");
   });
 
   it("should edit the project properly", async () => {
@@ -93,7 +93,7 @@ describe("<ProjectForm/>", () => {
 
     findProjectMock.mockReturnValue(toEditProject);
 
-    const { getByTestId } = mount(ProjectForm, {
+    const wrapper = mount(ProjectForm, {
       props: {
         id: toEditProject.id,
       },
@@ -107,7 +107,7 @@ describe("<ProjectForm/>", () => {
     });
 
     await waitFor(() => {
-      expect(getByTestId("edit-project")).toHaveValue(toEditProject.name);
+      expect(wrapper.getByTestId("edit-project")).toHaveValue(toEditProject.name);
     });
 
     await editProject({

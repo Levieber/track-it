@@ -7,29 +7,34 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/vue3-essential",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-recommended",
+    "plugin:@typescript-eslint/strict-type-checked",
     "prettier"
   ],
   "overrides": [
     {
-      "files": "tests/components/**.ts",
+      "files": "tests/components/**/*.ts",
       "extends": ["plugin:vitest/recommended"],
-      "plugins": ["vitest"]
+      "parserOptions": {
+        "project": "./tests/components/tsconfig.json"
+      }
     },
     {
-      "files": "tests/e2e/**.ts",
+      "files": "tests/e2e/**/*.ts",
       "extends": ["plugin:cypress/recommended", "plugin:chai-friendly/recommended"],
-      "plugins": ["vitest"]
+      "parserOptions": {
+        "project": "./tests/e2e/tsconfig.json"
+      }
     }
   ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
+    "project": "./tsconfig.eslint.json",
+    "extraFileExtensions": [".vue"],
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["vue", "@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-namespace": [
       "error",

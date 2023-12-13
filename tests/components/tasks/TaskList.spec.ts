@@ -27,7 +27,7 @@ const mount = createMount();
 
 describe("<TaskList />", () => {
   it("should render a feedback when not have a task", () => {
-    const { getByTestId } = mount(TaskList, {
+    const wrapper = mount(TaskList, {
       state: {
         initialState: {
           task: {
@@ -39,14 +39,14 @@ describe("<TaskList />", () => {
 
     const feedbackText = "você não está muito produtivo hoje";
 
-    const feedbackItem = getByTestId("empty-list-feedback");
+    const feedbackItem = wrapper.getByTestId("empty-list-feedback");
 
     expect(feedbackItem).toBeVisible();
     expect(feedbackItem).toHaveTextContent(new RegExp(feedbackText, "i"));
   });
 
   it("should render the tasks properly", () => {
-    const { getAllByTestId } = mount(TaskList, {
+    const wrapper = mount(TaskList, {
       state: {
         initialState: {
           task: {
@@ -56,13 +56,13 @@ describe("<TaskList />", () => {
       },
     });
 
-    const taskItems = getAllByTestId("task-item");
+    const taskItems = wrapper.getAllByTestId("task-item");
 
     expect(taskItems).toHaveLength(tasks.length);
   });
 
   it("should no render the search input when not have tasks", () => {
-    const { queryByTestId } = mount(TaskList, {
+    const wrapper = mount(TaskList, {
       state: {
         initialState: {
           task: {
@@ -72,13 +72,13 @@ describe("<TaskList />", () => {
       },
     });
 
-    const searchTaskInput = queryByTestId("search-task");
+    const searchTaskInput = wrapper.queryByTestId("search-task");
 
     expect(searchTaskInput).not.toBeInTheDocument();
   });
 
   it("should filter the task properly", async () => {
-    const { getByTestId, getAllByTestId, user } = mount(TaskList, {
+    const wrapper = mount(TaskList, {
       state: {
         initialState: {
           task: {
@@ -88,11 +88,11 @@ describe("<TaskList />", () => {
       },
     });
 
-    const searchTaskInput = getByTestId("search-task");
+    const searchTaskInput = wrapper.getByTestId("search-task");
 
-    await user.type(searchTaskInput, "make");
+    await wrapper.user.type(searchTaskInput, "make");
 
-    const taskItems = getAllByTestId("task-item");
+    const taskItems = wrapper.getAllByTestId("task-item");
 
     expect(taskItems).toHaveLength(2);
   });

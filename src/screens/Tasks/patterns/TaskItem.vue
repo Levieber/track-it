@@ -8,8 +8,8 @@ import IconTrash from "@src/components/icons/IconTrash.vue";
 import { useTaskStore } from "@src/stores/task";
 import { useProjectStore } from "@src/stores/project";
 
-const { deleteTask } = useTaskStore();
-const { findProject } = useProjectStore();
+const taskStore = useTaskStore();
+const projectStore = useProjectStore();
 
 const { task } = defineProps<{ task: Task }>();
 
@@ -17,7 +17,7 @@ function deleteTaskAction() {
   const deletionConfirmation = confirm(`Tem certeza de excluir a tarefa ${task.title}?`);
 
   if (deletionConfirmation && task.id) {
-    deleteTask(task.id);
+    taskStore.deleteTask(task.id);
   }
 }
 </script>
@@ -28,7 +28,7 @@ function deleteTaskAction() {
       {{ task.title || "Tarefa sem título" }}
     </strong>
     <strong data-test="task-project">
-      Projeto {{ task.project ? findProject(task.project)?.name : "N/D" }}
+      Projeto {{ task.project ? projectStore.findProject(task.project)?.name : "N/D" }}
     </strong>
     <TaskTimer data-test="task-timer" with-icon :time-in-seconds="task.time" />
     <div class="flex flex-wrap gap-3">
@@ -41,8 +41,8 @@ function deleteTaskAction() {
       </RouterLink>
       <button
         data-test="delete-task-button"
-        @click="deleteTaskAction"
         class="btn btn-error flex items-center gap-1"
+        @click="deleteTaskAction"
       >
         <IconTrash /> Deletar tarefa
       </button>

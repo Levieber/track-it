@@ -47,18 +47,18 @@ function stopTimer() {
     <button
       data-test="start-timer"
       :disabled="timer.running"
-      @click="startTimer"
       type="button"
       class="btn btn-success flex gap-2 text-black"
+      @click="startTimer"
     >
       <IconPlay /> {{ initialTime || timer.timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
     <button
       data-test="stop-timer"
       :disabled="!timer.running"
-      @click="stopTimer"
       type="button"
       class="btn btn-error flex gap-2"
+      @click="stopTimer"
     >
       <IconPause /> Pausar
     </button>
