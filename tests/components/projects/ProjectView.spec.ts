@@ -35,7 +35,7 @@ const mount = createMount();
 
 describe("<ProjectsView />", () => {
   it("should render a feedback when not have a project", () => {
-    const { getByTestId } = mount(ProjectsView, {
+    const wrapper = mount(ProjectsView, {
       state: {
         initialState: {
           project: {
@@ -47,11 +47,11 @@ describe("<ProjectsView />", () => {
 
     const feedbackText = "Você ainda não tem um projeto, tente criar um.";
 
-    expect(getByTestId("empty-list-feedback")).toHaveTextContent(new RegExp(feedbackText, "i"));
+    expect(wrapper.getByTestId("empty-list-feedback")).toHaveTextContent(new RegExp(feedbackText, "i"));
   });
 
   it("should render the projects properly", () => {
-    const { getAllByTestId } = mount(ProjectsView, {
+    const wrapper = mount(ProjectsView, {
       state: {
         initialState: {
           project: {
@@ -61,13 +61,13 @@ describe("<ProjectsView />", () => {
       },
     });
 
-    const projectItems = getAllByTestId("project-item");
+    const projectItems = wrapper.getAllByTestId("project-item");
 
     expect(projectItems).toHaveLength(projects.length);
   });
 
   it("should no render the search input when not have projects", () => {
-    const { queryByTestId } = mount(ProjectsView, {
+    const wrapper = mount(ProjectsView, {
       state: {
         initialState: {
           project: {
@@ -77,13 +77,13 @@ describe("<ProjectsView />", () => {
       },
     });
 
-    const searchProjectInput = queryByTestId("search-project");
+    const searchProjectInput = wrapper.queryByTestId("search-project");
 
     expect(searchProjectInput).not.toBeInTheDocument();
   });
 
   it("should filter the projects properly", async () => {
-    const { getByTestId, getAllByTestId, user } = mount(ProjectsView, {
+    const wrapper = mount(ProjectsView, {
       state: {
         initialState: {
           project: {
@@ -93,17 +93,17 @@ describe("<ProjectsView />", () => {
       },
     });
 
-    const searchProjectInput = getByTestId("search-project");
+    const searchProjectInput = wrapper.getByTestId("search-project");
 
-    await user.type(searchProjectInput, "course");
+    await wrapper.user.type(searchProjectInput, "course");
 
-    const projectItems = getAllByTestId("project-item");
+    const projectItems = wrapper.getAllByTestId("project-item");
 
     expect(projectItems).toHaveLength(2);
   });
 
   it("should show the quantity of the tasks in a project properly", () => {
-    const { getByText } = mount(ProjectsView, {
+    const wrapper = mount(ProjectsView, {
       state: {
         initialState: {
           task: {
@@ -118,7 +118,7 @@ describe("<ProjectsView />", () => {
     });
 
     expect(
-      getByText(String(tasks.length), { selector: "[data-test='project-tasks-quantity']" }),
-    ).toBeInTheDocument();
+      wrapper.getByText(String(tasks.length), { selector: "[data-test='project-tasks-quantity']" }),
+    ).toBeVisible();
   });
 });

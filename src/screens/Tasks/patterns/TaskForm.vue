@@ -6,7 +6,7 @@ import { useTaskStore } from "@src/stores/task";
 import { computed, onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 
-const { editTask, addTask, findTask } = useTaskStore();
+const taskStore = useTaskStore();
 const { projects } = useProjectStore();
 
 const router = useRouter();
@@ -22,8 +22,8 @@ const { id } = defineProps<{ id?: string }>();
 const placeholderText = computed(() => (id ? "Atribua um título a tarefa" : "Qual tarefa deseja realizar?"));
 
 function createTaskAction() {
-  addTask({
-    id: crypto.randomUUID?.() ?? new Date().toISOString(),
+  taskStore.addTask({
+    id: crypto.randomUUID(),
     title: task.title,
     time: task.time,
     project: task.project,
@@ -31,14 +31,14 @@ function createTaskAction() {
 }
 
 function editTaskAction() {
-  editTask(String(id), {
+  taskStore.editTask(String(id), {
     title: task.title,
     time: task.time,
     project: task.project,
   });
 }
 
-function saveTask() {
+async function saveTask() {
   if (id) {
     editTaskAction();
   } else {
@@ -46,12 +46,12 @@ function saveTask() {
   }
 
   task.title = "";
-  router.push({ name: "tasks" });
+  await router.push({ name: "tasks" });
 }
 
 onMounted(() => {
   if (id) {
-    const storagedTask = findTask(String(id));
+    const storagedTask = taskStore.findTask(String(id));
 
     if (storagedTask) {
       task.title = storagedTask.title;
@@ -63,7 +63,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <form @submit.prevent="saveTask" class="flex flex-col flex-wrap items-center justify-center gap-3">
+  <form class="flex flex-col flex-wrap items-center justify-center gap-3" @submit.prevent="saveTask">
     <input
       v-model="task.title"
       :data-test="id ? 'edit-task' : 'create-task'"
@@ -72,14 +72,14 @@ onMounted(() => {
       :placeholder="placeholderText"
       aria-label="Criar tarefa"
     />
-    <select data-test="link-project" v-model="task.project" class="select select-bordered w-full max-w-md">
+    <select v-model="task.project" data-test="link-project" class="select select-bordered w-full max-w-md">
       <option value="" selected>Sem projeto</option>
       <option v-for="project of projects" :key="project.id" :value="project.id">
         {{ project.name }}
       </option>
     </select>
     <TaskTimerManager
-      :initial-time="findTask(String(id))?.time"
+      :initial-time="taskStore.findTask(String(id))?.time"
       @timer-finish="(timeInSeconds: number) => (task.time = timeInSeconds)"
     />
     <button data-test="save-task-button" class="btn btn-accent btn-block max-w-lg text-black">

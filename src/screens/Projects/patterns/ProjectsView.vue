@@ -28,13 +28,13 @@ const filteredProjects = computed(() => {
         <IconPlus /> Criar projeto
       </RouterLink>
       <input
+        v-if="!isProjectListEmpty"
+        v-model="search"
         data-test="search-project"
         aria-label="Buscar tarefa"
         type="text"
         class="input input-bordered"
         placeholder="Busque por projetos"
-        v-model="search"
-        v-if="!isProjectListEmpty"
       />
     </div>
     <div class="w-full max-w-4xl overflow-x-auto">
@@ -50,7 +50,7 @@ const filteredProjects = computed(() => {
           <ProjectItem v-for="project of filteredProjects" :key="project.id" :project="project" />
         </tbody>
       </table>
-      <BaseBox data-test="empty-list-feedback" role="alert" class="w-full" v-else>
+      <BaseBox v-else data-test="empty-list-feedback" role="alert" class="w-full">
         Você ainda não tem um projeto, tente criar um.
       </BaseBox>
     </div>

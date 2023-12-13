@@ -99,14 +99,14 @@ describe("<TaskForm/>", () => {
       time: 150,
     };
 
-    const { getByTestId } = mount(TaskForm);
+    const wrapper = mount(TaskForm);
 
     await createTask(task);
 
     expect(addTaskMock).toHaveBeenCalled();
     expect(addTaskMock).toHaveBeenCalledWith(expect.objectContaining(task));
 
-    expect(getByTestId("create-task")).toHaveValue("");
+    expect(wrapper.getByTestId("create-task")).toHaveValue("");
   });
 
   it("should possible start and finish a task without a title", async () => {
@@ -132,15 +132,15 @@ describe("<TaskForm/>", () => {
 
     findTaskMock.mockReturnValue(toEditTask);
 
-    const { getByTestId } = mount(TaskForm, {
+    const wrapper = mount(TaskForm, {
       props: {
         id: toEditTask.id,
       },
     });
 
     await waitFor(() => {
-      expect(getByTestId("edit-task")).toHaveValue(toEditTask.title);
-      expect(getByTestId("link-project")).toHaveValue(toEditTask.project);
+      expect(wrapper.getByTestId("edit-task")).toHaveValue(toEditTask.title);
+      expect(wrapper.getByTestId("link-project")).toHaveValue(toEditTask.project);
     });
 
     await editTask({
@@ -161,14 +161,14 @@ describe("<TaskForm/>", () => {
       title: "Study component tests with Cypress",
     };
 
-    const { getByTestId } = mount(TaskForm, {
+    const wrapper = mount(TaskForm, {
       props: {
         id: toEditTask.id,
       },
     });
 
     await waitFor(() => {
-      expect(getByTestId("edit-task")).toHaveValue(toEditTask.title);
+      expect(wrapper.getByTestId("edit-task")).toHaveValue(toEditTask.title);
     });
 
     await editTask({
@@ -209,14 +209,14 @@ describe("<TaskForm/>", () => {
       project: projects[1].id,
     };
 
-    const { getByTestId } = mount(TaskForm, {
+    const wrapper = mount(TaskForm, {
       props: {
         id: toEditTask.id,
       },
     });
 
     await waitFor(() => {
-      expect(getByTestId("link-project")).toHaveValue(toEditTask.project);
+      expect(wrapper.getByTestId("link-project")).toHaveValue(toEditTask.project);
     });
 
     await editTask({

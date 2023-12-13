@@ -5,7 +5,7 @@ import { reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const { id } = defineProps<{ id?: string }>();
-const { addProject, editProject, findProject } = useProjectStore();
+const projectStore = useProjectStore();
 
 const router = useRouter();
 
@@ -14,19 +14,19 @@ const project = reactive({
 });
 
 function editProjectAction() {
-  editProject(String(id), {
+  projectStore.editProject(String(id), {
     name: project.name,
   });
 }
 
 function createProjectAction() {
-  addProject({
-    id: crypto.randomUUID?.() || new Date().toISOString(),
+  projectStore.addProject({
+    id: crypto.randomUUID(),
     name: project.name,
   });
 }
 
-function saveProject() {
+async function saveProject() {
   if (project.name.trim() === "") {
     alert("O nome do projeto não pode ser vazio!");
     project.name = "";
@@ -40,20 +40,20 @@ function saveProject() {
   }
 
   project.name = "";
-  router.push({ name: "projects" });
+  await router.push({ name: "projects" });
 }
 
 onMounted(() => {
-  project.name = findProject(String(id))?.name ?? "";
+  project.name = projectStore.findProject(String(id))?.name ?? "";
 });
 </script>
 
 <template>
-  <form @submit.prevent="saveProject" class="flex flex-col flex-wrap items-center justify-center gap-3">
+  <form class="flex flex-col flex-wrap items-center justify-center gap-3" @submit.prevent="saveProject">
     <input
+      v-model="project.name"
       :data-test="id ? 'edit-project' : 'create-project'"
       required
-      v-model="project.name"
       placeholder="Qual projeto deseja criar?"
       type="text"
       class="input input-bordered w-full max-w-xl"

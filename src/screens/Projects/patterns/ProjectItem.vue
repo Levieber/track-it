@@ -6,12 +6,12 @@ import IconTrash from "@src/components/icons/IconTrash.vue";
 
 const { project } = defineProps<{ project: Project }>();
 
-const { getTotalTasks, deleteProject } = useProjectStore();
+const projectStore = useProjectStore();
 
 function deleteProjectAction() {
   const deletionConfirmation = confirm(`Tem certeza de excluir o projeto ${project.name}?`);
   if (deletionConfirmation) {
-    deleteProject(project.id);
+    projectStore.deleteProject(project.id);
   }
 }
 </script>
@@ -21,7 +21,7 @@ function deleteProjectAction() {
     <td data-test="project-name" class="text-xl">
       {{ project.name }}
     </td>
-    <td data-test="project-tasks-quantity" class="text-xl">{{ getTotalTasks(project.id) }}</td>
+    <td data-test="project-tasks-quantity" class="text-xl">{{ projectStore.getTotalTasks(project.id) }}</td>
     <td class="flex flex-wrap gap-2">
       <RouterLink
         data-test="edit-project-link"
@@ -30,7 +30,7 @@ function deleteProjectAction() {
       >
         <IconEdit /> Editar projeto
       </RouterLink>
-      <button data-test="delete-project-button" @click="deleteProjectAction" class="btn btn-error">
+      <button data-test="delete-project-button" class="btn btn-error" @click="deleteProjectAction">
         <IconTrash /> Deletar projeto
       </button>
     </td>
