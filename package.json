@@ -8,7 +8,7 @@
 		"node": "20.x.x"
 	},
 	"scripts": {
-		"prepare": "husky install",
+		"prepare": "husky",
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
