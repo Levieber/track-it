@@ -15,12 +15,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "pnpm"
 
-      - name: Pnpm Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
+      - run: corepack enable
 
       - name: Get pnpm store directory
         shell: bash
