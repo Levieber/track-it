@@ -1,57 +1,56 @@
 <script setup lang="ts">
 import { useProjectStore } from "@src/stores/project";
 import IconSave from "@src/components/icons/IconSave.vue";
-import { reactive, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+import type { Project } from "@src/types/Project";
 
 const { id } = defineProps<{ id?: string }>();
 const projectStore = useProjectStore();
 
 const router = useRouter();
 
-const project = reactive({
-  name: "",
-});
+const name = defineModel<string>("projectName", { default: "" });
 
-function editProjectAction() {
-  projectStore.editProject(String(id), {
-    name: project.name,
+function editProjectAction({ id, name }: Project) {
+  projectStore.editProject(id, {
+    name,
   });
 }
 
-function createProjectAction() {
+function createProjectAction({ name }: Omit<Project, "id">) {
   projectStore.addProject({
     id: crypto.randomUUID(),
-    name: project.name,
+    name,
   });
 }
 
 async function saveProject() {
-  if (project.name.trim() === "") {
+  if (name.value.trim() === "") {
     alert("O nome do projeto não pode ser vazio!");
-    project.name = "";
+    name.value = "";
     return;
   }
 
   if (id) {
-    editProjectAction();
+    editProjectAction({ id, name: name.value });
   } else {
-    createProjectAction();
+    createProjectAction({ name: name.value });
   }
 
-  project.name = "";
+  name.value = "";
   await router.push({ name: "projects" });
 }
 
 onMounted(() => {
-  project.name = projectStore.findProject(String(id))?.name ?? "";
+  name.value = projectStore.findProject(String(id))?.name ?? "";
 });
 </script>
 
 <template>
   <form class="flex flex-col flex-wrap items-center justify-center gap-3" @submit.prevent="saveProject">
     <input
-      v-model="project.name"
+      v-model="name"
       :data-test="id ? 'edit-project' : 'create-project'"
       required
       placeholder="Qual projeto deseja criar?"
