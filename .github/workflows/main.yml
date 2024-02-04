@@ -13,14 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - run: corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Pnpm Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          cache: "pnpm"
 
       - name: Install deps
         uses: cypress-io/github-action@v6
