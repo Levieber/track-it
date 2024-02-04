@@ -4,13 +4,12 @@ import IconPlay from "@src/components/icons/IconPlay.vue";
 import IconPause from "@src/components/icons/IconPause.vue";
 import { reactive } from "vue";
 
-const { initialTime } = defineProps<{ initialTime?: number }>();
+const timeInSeconds = defineModel<number>("timeInSeconds", { default: 0 });
 
 const oneSecond = 1000;
 
 const timer = reactive({
   id: 0,
-  timeInSeconds: initialTime || 0,
   startTime: 0,
   running: false,
 });
@@ -21,12 +20,12 @@ const emit = defineEmits<{
 
 function updateTime() {
   const now = Math.floor(Date.now() / oneSecond);
-  timer.timeInSeconds = now - +timer.startTime;
+  timeInSeconds.value = now - +timer.startTime;
 }
 
 function startTimer() {
   timer.running = true;
-  timer.startTime = Math.floor(Date.now() / oneSecond) - timer.timeInSeconds;
+  timer.startTime = Math.floor(Date.now() / oneSecond) - timeInSeconds.value;
   timer.id = setInterval(() => {
     updateTime();
   }, oneSecond);
@@ -35,13 +34,13 @@ function startTimer() {
 function stopTimer() {
   timer.running = false;
   clearInterval(timer.id);
-  emit("timerFinish", timer.timeInSeconds);
+  emit("timerFinish", timeInSeconds.value);
 }
 </script>
 
 <template>
   <section>
-    <TaskTimer :time-in-seconds="timer.timeInSeconds" />
+    <TaskTimer :time-in-seconds="timeInSeconds" />
   </section>
   <section class="flex flex-wrap justify-center gap-3">
     <button
@@ -51,7 +50,7 @@ function stopTimer() {
       class="btn btn-success flex gap-2 text-black"
       @click="startTimer"
     >
-      <IconPlay /> {{ initialTime || timer.timeInSeconds > 0 ? "Continuar" : "Começar" }}
+      <IconPlay /> {{ timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
     <button
       data-test="stop-timer"

@@ -23,7 +23,7 @@ jobs:
           version: 8
 
       - name: Install deps
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
 
@@ -37,7 +37,7 @@ jobs:
         run: pnpm run test:component
 
       - name: Run E2E tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           install: false
           build: pnpm run build

@@ -86,7 +86,7 @@ describe("<TaskTimerManager />", () => {
 
     const wrapper = mount(TaskTimerManager, {
       props: {
-        initialTime,
+        timeInSeconds: initialTime,
         onTimerFinish: onTimerFinishSpy,
       },
     });

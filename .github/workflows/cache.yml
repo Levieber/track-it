@@ -42,6 +42,6 @@ jobs:
           key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.json') }}
 
       - name: Cypress Install
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
