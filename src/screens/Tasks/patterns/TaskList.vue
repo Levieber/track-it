@@ -12,7 +12,7 @@ const { tasks } = useTaskStore();
 
 const filteredTasks = computed(() => {
   const query = new RegExp(search.value, "i");
-  return tasks.filter((t) => query.test(t.title));
+  return tasks.filter(t => query.test(t.title));
 });
 
 const isTaskListEmpty = computed(() => tasks.length <= 0);
@@ -36,7 +36,7 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
         type="text"
         class="input input-bordered"
         placeholder="Busque por uma tarefa"
-      />
+      >
     </div>
     <ul class="flex w-full max-w-4xl flex-col gap-3" role="list">
       <li v-for="task of filteredTasks" :key="task.id">

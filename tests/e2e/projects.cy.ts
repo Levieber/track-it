@@ -40,7 +40,8 @@ describe("Project - User Journey", () => {
         if (!project.name) {
           cy.get("input:invalid").should("have.length", 1);
           cy.createProject({ ...project, name: defaultProjectName });
-        } else {
+        }
+        else {
           cy.createProject(project);
         }
 
@@ -116,11 +117,13 @@ describe("Project - User Journey", () => {
 
     const tasks = [
       {
+        id: "",
         title: "Operators And Expression Class",
         time: 250,
         project: project.name,
       },
       {
+        id: "",
         title: "Loops Class",
         time: 200,
         project: project.name,
@@ -154,11 +157,13 @@ describe("Project - User Journey", () => {
 
     const tasks = [
       {
+        id: "",
         title: "Operators And Expression Class",
         time: 250,
         project: project.name,
       },
       {
+        id: "",
         title: "Loops Class",
         time: 200,
         project: project.name,

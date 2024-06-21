@@ -8,12 +8,12 @@ import IconTrash from "@src/components/icons/IconTrash.vue";
 import { useTaskStore } from "@src/stores/task";
 import { useProjectStore } from "@src/stores/project";
 
+const { task } = defineProps<{ task: Task }>();
 const taskStore = useTaskStore();
 const projectStore = useProjectStore();
 
-const { task } = defineProps<{ task: Task }>();
-
 function deleteTaskAction() {
+  // eslint-disable-next-line no-alert
   const deletionConfirmation = confirm(`Tem certeza de excluir a tarefa ${task.title}?`);
 
   if (deletionConfirmation && task.id) {

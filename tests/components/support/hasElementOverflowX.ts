@@ -1,4 +1,4 @@
-export const hasElementOverflowX = (document: Document) => {
+export function hasElementOverflowX(document: Document) {
   const elementsWithOverflow: Element[] = [];
   const elementsOnDocument = document.getElementsByTagName("*");
   const documentWidth = document.documentElement.offsetWidth;
@@ -16,4 +16,4 @@ export const hasElementOverflowX = (document: Document) => {
     elements: elementsWithOverflow,
     value: elementsWithOverflow.length > 0,
   };
-};
+}
