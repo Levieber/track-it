@@ -11,7 +11,8 @@ describe("Theme of Application", () => {
       cy.get("@toggle-theme").should("be.checked");
       cy.get("@toggle-theme").uncheck({ force: true });
       cy.get("@toggle-theme").should("not.be.checked");
-    } else {
+    }
+    else {
       cy.get("@toggle-theme").should("not.be.checked");
       cy.get("@toggle-theme").check({ force: true });
       cy.get("@toggle-theme").should("be.checked");
@@ -21,7 +22,8 @@ describe("Theme of Application", () => {
 
     if (isDarkTheme) {
       cy.get("@toggle-theme").check({ force: true });
-    } else {
+    }
+    else {
       cy.get("@toggle-theme").uncheck({ force: true });
     }
 
@@ -37,6 +39,7 @@ describe("Theme of Application", () => {
       .its("localStorage")
       .invoke("getItem", "theme")
       .then((value) => {
+        // eslint-disable-next-line no-unused-expressions
         expect(value).to.be.null;
       });
 
@@ -47,7 +50,8 @@ describe("Theme of Application", () => {
       cy.get("@toggle-theme").should("be.checked");
       cy.get("@toggle-theme").uncheck({ force: true });
       cy.get("@toggle-theme").should("not.be.checked");
-    } else {
+    }
+    else {
       cy.get("@toggle-theme").should("not.be.checked");
       cy.get("@toggle-theme").check({ force: true });
       cy.get("@toggle-theme").should("be.checked");
@@ -64,7 +68,8 @@ describe("Theme of Application", () => {
 
     if (isDarkTheme) {
       cy.get("@toggle-theme").check({ force: true });
-    } else {
+    }
+    else {
       cy.get("@toggle-theme").uncheck({ force: true });
     }
 

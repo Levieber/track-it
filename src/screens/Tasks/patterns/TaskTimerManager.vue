@@ -4,6 +4,10 @@ import IconPlay from "@src/components/icons/IconPlay.vue";
 import IconPause from "@src/components/icons/IconPause.vue";
 import { reactive } from "vue";
 
+const emit = defineEmits<{
+  timerFinish: [timeInSeconds: number];
+}>();
+
 const timeInSeconds = defineModel<number>("timeInSeconds", { default: 0 });
 
 const oneSecond = 1000;
@@ -13,10 +17,6 @@ const timer = reactive({
   startTime: 0,
   running: false,
 });
-
-const emit = defineEmits<{
-  timerFinish: [timeInSeconds: number];
-}>();
 
 function updateTime() {
   const now = Math.floor(Date.now() / oneSecond);

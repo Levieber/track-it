@@ -1,10 +1,10 @@
-import { render, type RenderOptions } from "@testing-library/vue";
+import { type RenderOptions, render } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import { createRouter, createWebHashHistory } from "vue-router";
 import { routes } from "@src/routes";
-import { createTestingPinia, type TestingOptions } from "@pinia/testing";
+import { type TestingOptions, createTestingPinia } from "@pinia/testing";
 
-export const createMount = (options: RenderOptions = {}) => {
+export function createMount(options: RenderOptions = {}) {
   return (
     component: unknown,
     { state, ...mountOptions }: RenderOptions & { state?: TestingOptions } = {},
@@ -32,4 +32,4 @@ export const createMount = (options: RenderOptions = {}) => {
       ...render(component, mergedOptions),
     };
   };
-};
+}

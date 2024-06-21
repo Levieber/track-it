@@ -1,6 +1,6 @@
 import { ref, watch } from "vue";
 
-const getInitialValue = () => {
+function getInitialValue() {
   const storagedTheme = localStorage.getItem("theme");
 
   if (!storagedTheme) {
@@ -8,9 +8,9 @@ const getInitialValue = () => {
   }
 
   return storagedTheme === "dark";
-};
+}
 
-export const useDarkMode = () => {
+export function useDarkMode() {
   const darkMode = ref(getInitialValue());
   document.documentElement.dataset.theme = darkMode.value ? "dark" : "light";
 
@@ -21,4 +21,4 @@ export const useDarkMode = () => {
   });
 
   return darkMode;
-};
+}

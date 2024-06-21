@@ -30,7 +30,7 @@ vi.mock("@src/stores/project", () => ({
 // JSDOM don't implement window.alert
 window.alert = () => {};
 
-const createProject = async (project: Omit<Project, "id">) => {
+async function createProject(project: Omit<Project, "id">) {
   const user = userEvent.setup();
 
   if (project.name) {
@@ -38,9 +38,9 @@ const createProject = async (project: Omit<Project, "id">) => {
   }
 
   await user.click(screen.getByTestId("save-project-button"));
-};
+}
 
-const editProject = async (project: Partial<Omit<Project, "id">>) => {
+async function editProject(project: Partial<Omit<Project, "id">>) {
   const user = userEvent.setup();
 
   if (project.name) {
@@ -50,7 +50,7 @@ const editProject = async (project: Partial<Omit<Project, "id">>) => {
   }
 
   await user.click(screen.getByTestId("save-project-button"));
-};
+}
 
 describe("<ProjectForm/>", () => {
   it("should have create the project properly", async () => {

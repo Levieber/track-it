@@ -1,8 +1,8 @@
 import type { Task } from "@src/types/Task";
 import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
-import { createMount } from "../support/mount";
 import { screen, waitFor } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
+import { createMount } from "../support/mount";
 
 const projects = [
   {
@@ -46,7 +46,7 @@ vi.mock("@src/stores/project", () => ({
 
 const mount = createMount();
 
-const createTask = async (task: Omit<Task, "id">) => {
+async function createTask(task: Omit<Task, "id">) {
   const user = userEvent.setup();
 
   if (task.title) {
@@ -66,9 +66,9 @@ const createTask = async (task: Omit<Task, "id">) => {
   }
 
   await user.click(screen.getByTestId("save-task-button"));
-};
+}
 
-const editTask = async (newContent: Partial<Omit<Task, "id">>) => {
+async function editTask(newContent: Partial<Omit<Task, "id">>) {
   const user = userEvent.setup();
 
   if (newContent.time) {
@@ -90,11 +90,11 @@ const editTask = async (newContent: Partial<Omit<Task, "id">>) => {
   }
 
   await user.click(screen.getByTestId("save-task-button"));
-};
+}
 
 describe("<TaskForm/>", () => {
   it("should have emit the task data properly", async () => {
-    const task: Task = {
+    const task: Omit<Task, "id"> = {
       title: "Study Pinia",
       time: 150,
     };
@@ -110,7 +110,7 @@ describe("<TaskForm/>", () => {
   });
 
   it("should possible start and finish a task without a title", async () => {
-    const task: Task = {
+    const task: Omit<Task, "id"> = {
       title: "",
       time: 150,
     };
