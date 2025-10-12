@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
 import { useDarkMode } from "@src/composables/useDarkMode";
-import IconTask from "./icons/IconTask.vue";
+import { RouterLink } from "vue-router";
 import IconProject from "./icons/IconProject.vue";
+import IconTask from "./icons/IconTask.vue";
 
 const darkMode = useDarkMode();
 </script>
@@ -31,7 +31,7 @@ const darkMode = useDarkMode();
       </RouterLink>
     </nav>
     <label class="swap swap-rotate">
-      <input v-model="darkMode" data-test="toggle-theme" type="checkbox">
+      <input v-model="darkMode" data-testid="toggle-theme" type="checkbox">
       <span class="sr-only">Modo escuro</span>
 
       <svg

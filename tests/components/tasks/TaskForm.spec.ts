@@ -1,7 +1,7 @@
 import type { Task } from "@src/types/Task";
 import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
-import { screen, waitFor } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
+import { screen, waitFor } from "@testing-library/vue";
 import { createMount } from "../support/mount";
 
 const projects = [

@@ -20,10 +20,8 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - name: Install deps
-        uses: cypress-io/github-action@v6
-        with:
-          runTests: false
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Code Lint
         run: pnpm run lint
@@ -34,13 +32,11 @@ jobs:
       - name: Run Component Testing
         run: pnpm run test:component
 
-      - name: Run E2E tests
-        uses: cypress-io/github-action@v6
-        with:
-          install: false
-          build: pnpm run build
-          start: pnpm run preview
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: pnpm run build
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Run Playwright E2E
+        run: pnpm run test:e2e

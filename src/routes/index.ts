@@ -1,12 +1,12 @@
 import type { RouteRecordRaw } from "vue-router";
-import { createRouter, createWebHashHistory } from "vue-router";
-import TasksScreen from "@src/screens/Tasks/TasksScreen.vue";
-import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
-import TaskList from "@src/screens/Tasks/patterns/TaskList.vue";
-
-import ProjectsScreen from "@src/screens/Projects/ProjectsScreen.vue";
-import ProjectsView from "@src/screens/Projects/patterns/ProjectsView.vue";
 import ProjectForm from "@src/screens/Projects/patterns/ProjectForm.vue";
+import ProjectsView from "@src/screens/Projects/patterns/ProjectsView.vue";
+import ProjectsScreen from "@src/screens/Projects/ProjectsScreen.vue";
+import TaskForm from "@src/screens/Tasks/patterns/TaskForm.vue";
+
+import TaskList from "@src/screens/Tasks/patterns/TaskList.vue";
+import TasksScreen from "@src/screens/Tasks/TasksScreen.vue";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 export const routes: RouteRecordRaw[] = [
   {
