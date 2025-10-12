@@ -1,13 +1,15 @@
-import { type RenderOptions, render } from "@testing-library/vue";
-import userEvent from "@testing-library/user-event";
-import { createRouter, createWebHashHistory } from "vue-router";
+import type { TestingOptions } from "@pinia/testing";
+import type { RenderOptions } from "@testing-library/vue";
+import { createTestingPinia } from "@pinia/testing";
 import { routes } from "@src/routes";
-import { type TestingOptions, createTestingPinia } from "@pinia/testing";
+import userEvent from "@testing-library/user-event";
+import { render } from "@testing-library/vue";
+import { createRouter, createWebHashHistory } from "vue-router";
 
-export function createMount(options: RenderOptions = {}) {
+export function createMount<C>(options: RenderOptions<C> = {}) {
   return (
-    component: unknown,
-    { state, ...mountOptions }: RenderOptions & { state?: TestingOptions } = {},
+    component: C,
+    { state, ...mountOptions }: RenderOptions<C> & { state?: TestingOptions } = {},
   ) => {
     const mergedOptions = {
       ...options,

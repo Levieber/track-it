@@ -1,8 +1,8 @@
 import type { Project } from "@src/types/Project";
 import ProjectForm from "@src/screens/Projects/patterns/ProjectForm.vue";
-import { createMount } from "@tests/components/support/mount";
 import userEvent from "@testing-library/user-event";
 import { screen, waitFor } from "@testing-library/vue";
+import { createMount } from "@tests/components/support/mount";
 
 const toEditContent = {
   name: "Vue Course",

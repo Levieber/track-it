@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
 import TaskBox from "@src/components/BaseBox.vue";
-import { useTaskStore } from "@src/stores/task";
-import { RouterLink } from "vue-router";
 import IconPlus from "@src/components/icons/IconPlus.vue";
+import TaskItem from "@src/screens/Tasks/patterns/TaskItem.vue";
+import { useTaskStore } from "@src/stores/task";
 import { computed, ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const search = ref("");
 
@@ -22,7 +22,7 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
   <section class="flex flex-col items-center gap-5">
     <div class="flex flex-wrap justify-center gap-3">
       <RouterLink
-        data-test="create-task-link"
+        data-testid="create-task-link"
         class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
         :to="{ name: 'new-task' }"
       >
@@ -31,7 +31,7 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
       <input
         v-if="!isTaskListEmpty"
         v-model="search"
-        data-test="search-task"
+        data-testid="search-task"
         aria-label="Buscar tarefa"
         type="text"
         class="input input-bordered"
@@ -42,7 +42,7 @@ const isTaskListEmpty = computed(() => tasks.length <= 0);
       <li v-for="task of filteredTasks" :key="task.id">
         <TaskItem :task="task" />
       </li>
-      <li v-if="isTaskListEmpty" data-test="empty-list-feedback">
+      <li v-if="isTaskListEmpty" data-testid="empty-list-feedback">
         <TaskBox>Você não está muito produtivo hoje :( </TaskBox>
       </li>
     </ul>

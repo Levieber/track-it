@@ -10,7 +10,9 @@ export default {
 
 <template>
   <section class="flex flex-col gap-5 p-3">
-    <h2 class="text-center text-3xl">Suas tarefas:</h2>
+    <h2 class="text-center text-3xl">
+      Suas tarefas:
+    </h2>
     <RouterView />
   </section>
 </template>

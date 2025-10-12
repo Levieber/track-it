@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TaskTimer from "@src/components/BaseTimer.vue";
-import IconPlay from "@src/components/icons/IconPlay.vue";
 import IconPause from "@src/components/icons/IconPause.vue";
+import IconPlay from "@src/components/icons/IconPlay.vue";
 import { reactive } from "vue";
 
 const emit = defineEmits<{
@@ -12,8 +12,12 @@ const timeInSeconds = defineModel<number>("timeInSeconds", { default: 0 });
 
 const oneSecond = 1000;
 
-const timer = reactive({
-  id: 0,
+const timer = reactive<{
+  id: ReturnType<typeof setInterval> | null;
+  startTime: number;
+  running: boolean;
+}>({
+  id: null,
   startTime: 0,
   running: false,
 });
@@ -33,7 +37,10 @@ function startTimer() {
 
 function stopTimer() {
   timer.running = false;
-  clearInterval(timer.id);
+
+  if (timer.id)
+    clearInterval(timer.id);
+
   emit("timerFinish", timeInSeconds.value);
 }
 </script>
@@ -44,7 +51,7 @@ function stopTimer() {
   </section>
   <section class="flex flex-wrap justify-center gap-3">
     <button
-      data-test="start-timer"
+      data-testid="start-timer"
       :disabled="timer.running"
       type="button"
       class="btn btn-success flex gap-2 text-black"
@@ -53,7 +60,7 @@ function stopTimer() {
       <IconPlay /> {{ timeInSeconds > 0 ? "Continuar" : "Começar" }}
     </button>
     <button
-      data-test="stop-timer"
+      data-testid="stop-timer"
       :disabled="!timer.running"
       type="button"
       class="btn btn-error flex gap-2"

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useProjectStore } from "@src/stores/project";
+import type { Project } from "@src/types/Project";
 import IconSave from "@src/components/icons/IconSave.vue";
+import { useProjectStore } from "@src/stores/project";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import type { Project } from "@src/types/Project";
 
 const { id } = defineProps<{ id?: string }>();
 const projectStore = useProjectStore();
@@ -57,7 +57,7 @@ onMounted(() => {
     <input
       id="project-name"
       v-model="name"
-      :data-test="id ? 'edit-project' : 'create-project'"
+      :data-testid="id ? 'edit-project' : 'create-project'"
       required
       placeholder="Qual projeto deseja criar?"
       type="text"
@@ -67,7 +67,7 @@ onMounted(() => {
       {{ error.message }}
     </p>
     <button
-      data-test="save-project-button"
+      data-testid="save-project-button"
       class="btn btn-accent btn-block max-w-lg text-black"
     >
       <IconSave /> Salvar

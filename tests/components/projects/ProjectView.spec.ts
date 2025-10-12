@@ -118,7 +118,7 @@ describe("<ProjectsView />", () => {
     });
 
     expect(
-      wrapper.getByText(String(tasks.length), { selector: "[data-test='project-tasks-quantity']" }),
+      wrapper.getByText(String(tasks.length), { selector: "[data-testid='project-tasks-quantity']" }),
     ).toBeVisible();
   });
 });

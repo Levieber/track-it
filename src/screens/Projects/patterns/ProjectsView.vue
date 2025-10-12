@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import { useProjectStore } from "@src/stores/project";
-import IconPlus from "@src/components/icons/IconPlus.vue";
 import BaseBox from "@src/components/BaseBox.vue";
+import IconPlus from "@src/components/icons/IconPlus.vue";
+import { useProjectStore } from "@src/stores/project";
 import { computed, ref } from "vue";
+import { RouterLink } from "vue-router";
 import ProjectItem from "./ProjectItem.vue";
 
 const search = ref("");
@@ -21,20 +21,14 @@ const filteredProjects = computed(() => {
   <section class="flex flex-col items-center gap-5">
     <div class="flex gap-3">
       <RouterLink
-        data-test="create-project-link"
-        class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
+        data-testid="create-project-link" class="btn bg-sky-900 text-white hover:bg-sky-700 hover:text-white"
         :to="{ name: 'new-project' }"
       >
         <IconPlus /> Criar projeto
       </RouterLink>
       <input
-        v-if="!isProjectListEmpty"
-        v-model="search"
-        data-test="search-project"
-        aria-label="Buscar tarefa"
-        type="text"
-        class="input input-bordered"
-        placeholder="Busque por projetos"
+        v-if="!isProjectListEmpty" v-model="search" data-testid="search-project" aria-label="Buscar tarefa"
+        type="text" class="input input-bordered" placeholder="Busque por projetos"
       >
     </div>
     <div class="w-full max-w-4xl overflow-x-auto">
@@ -53,19 +47,10 @@ const filteredProjects = computed(() => {
           </tr>
         </thead>
         <tbody>
-          <ProjectItem
-            v-for="project of filteredProjects"
-            :key="project.id"
-            :project="project"
-          />
+          <ProjectItem v-for="project of filteredProjects" :key="project.id" :project="project" />
         </tbody>
       </table>
-      <BaseBox
-        v-else
-        data-test="empty-list-feedback"
-        role="alert"
-        class="w-full"
-      >
+      <BaseBox v-else data-testid="empty-list-feedback" role="alert" class="w-full">
         Você ainda não tem um projeto, tente criar um.
       </BaseBox>
     </div>

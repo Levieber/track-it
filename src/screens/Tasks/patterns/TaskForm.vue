@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { Task } from "@src/types/Task";
 import IconSave from "@src/components/icons/IconSave.vue";
 import { useProjectStore } from "@src/stores/project";
 import { useTaskStore } from "@src/stores/task";
-import type { Task } from "@src/types/Task";
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import TaskTimerManager from "./TaskTimerManager.vue";
@@ -85,7 +85,7 @@ onMounted(() => {
   >
     <input
       v-model="title"
-      :data-test="id ? 'edit-task' : 'create-task'"
+      :data-testid="id ? 'edit-task' : 'create-task'"
       class="input input-bordered w-full max-w-md"
       type="text"
       :placeholder="placeholderText"
@@ -93,7 +93,7 @@ onMounted(() => {
     >
     <select
       v-model="project"
-      data-test="link-project"
+      data-testid="link-project"
       class="select select-bordered w-full max-w-md"
     >
       <option value="" selected>
@@ -109,7 +109,7 @@ onMounted(() => {
     </select>
     <TaskTimerManager :time-in-seconds="time" @timer-finish="updateTaskTime" />
     <button
-      data-test="save-task-button"
+      data-testid="save-task-button"
       class="btn btn-accent btn-block max-w-lg text-black"
     >
       <IconSave /> Salvar

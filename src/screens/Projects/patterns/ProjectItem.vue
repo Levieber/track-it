@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useProjectStore } from "@src/stores/project";
 import type { Project } from "@src/types/Project";
 import IconEdit from "@src/components/icons/IconEdit.vue";
 import IconTrash from "@src/components/icons/IconTrash.vue";
+import { useProjectStore } from "@src/stores/project";
 
 const { project } = defineProps<{ project: Project }>();
 
@@ -20,23 +20,23 @@ function deleteProjectAction() {
 </script>
 
 <template>
-  <tr data-test="project-item">
-    <td data-test="project-name" class="text-xl">
+  <tr data-testid="project-item">
+    <td data-testid="project-name" class="text-xl">
       {{ project.name }}
     </td>
-    <td data-test="project-tasks-quantity" class="text-xl">
+    <td data-testid="project-tasks-quantity" class="text-xl">
       {{ projectStore.getTotalTasks(project.id) }}
     </td>
     <td class="flex flex-wrap gap-2">
       <RouterLink
-        data-test="edit-project-link"
+        data-testid="edit-project-link"
         class="btn btn-info"
         :to="{ name: 'edit-project', params: { id: project.id } }"
       >
         <IconEdit /> Editar projeto
       </RouterLink>
       <button
-        data-test="delete-project-button"
+        data-testid="delete-project-button"
         class="btn btn-error"
         @click="deleteProjectAction"
       >

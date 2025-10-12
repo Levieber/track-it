@@ -1,5 +1,5 @@
-import TaskList from "@src/screens/Tasks/patterns/TaskList.vue";
 import type { Task } from "@src/types/Task";
+import TaskList from "@src/screens/Tasks/patterns/TaskList.vue";
 import { createMount } from "@tests/components/support/mount";
 
 const tasks: Array<Task & { editTitle?: string }> = [
