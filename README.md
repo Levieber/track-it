@@ -1,95 +1,43 @@
-<p align="center">
-  <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
-  <img height="30" src="https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg"/>
-</p>
+# Track It
 
-## 💭 Descrição
+> 🇧🇷 [Leia em português](README.pt-BR.md)
 
-<p>Um projeto baseado na ideia de um projeto de um curso da Alura, feito com Vue 3 e Typescript.</p>
-<p>Incrementei usando Cypress, CI/CD e o bot Renovate. Usei Pinia, pnpm e Tailwind ao invés de Vuex, NPM e Bulma/CSS.</p>
-<p>Funcionalidades:</p>
+A task and project tracker: time your tasks, group them into projects, and search them. Built with Vue 3 and TypeScript.
 
-- Criar, atualizar, deletar e pesquisar tarefas;
-- Criar, atualizar e deletar projetos;
-- Relacionar tarefas a projetos.
+## Where it comes from
 
-## 💡 Informações do projeto
+It started from a project in an [Alura](https://www.alura.com.br/) Vue course. I kept the idea and rebuilt the engineering around it, over 170+ commits, nearly all of them through pull requests:
 
-### 💻 Ambiente:
+- **Testing:** E2E tests with Playwright (migrated from Cypress) and component tests with Vitest and Testing Library.
+- **CI on every pull request:** lint, type check, component tests, build and E2E, with a cached pnpm store.
+- **Dependency updates** handled by Renovate, reviewed as pull requests.
+- **Stricter tooling:** `@antfu/eslint-config`, `vue-tsc`, husky and lint-staged on every commit.
+- **Different choices from the course:** Pinia instead of Vuex, Tailwind + DaisyUI instead of Bulma, pnpm instead of npm, and a move from the Options API to the Composition API.
 
-![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-![Powershell](https://img.shields.io/badge/Powershell-2CA5E0?style=for-the-badge&logo=powershell&logoColor=white)
+## Features
 
-### 👨‍💻 Principais tecnologias:
+- Create, edit, delete and search tasks, with a timer for each one.
+- Create, edit and delete projects.
+- Link tasks to projects.
+- Light and dark themes.
 
-- [Vue](https://vuejs.org/)
-  - Framework Front-End Javascript
-- [Typescript](https://www.typescriptlang.org/)
-  - Superset, linguagem baseado no Javascript.
-- [Vue Router](https://router.vuejs.org/)
-  - Roteador oficial do Vue
-- [Pinia](https://pinia.vuejs.org/)
-  - Gerenciador de estados oficial do Vue.
-- [Tailwind](https://tailwindcss.com/)
-  - Framework CSS baseado em classes utilitárias.
-- [DaisyUI](https://daisyui.com/)
-  - Bibliotecas de componentes baseado em classes para Tailwind.
-- [Playwright](https://playwright.dev/)
-  - Framework de testes E2E e de componentes baseado em browser.
+## Stack
 
-## 🛠️ Modificando o projeto
+Vue 3 · TypeScript · Vue Router · Pinia · Tailwind CSS · DaisyUI · Vite · Playwright · Vitest · Testing Library
 
-### Siga as seguintes instruções para instalar e poder modificar o projeto em sua máquina:
+## Running it
 
-### 📋 Pré-requisitos:
+You need Node.js (see `mise.toml`) and pnpm (`corepack enable` picks the version in `package.json`).
 
-Para baixar, executar e modificar o projeto, você precisa ter instalado em sua máquina:
-
-- [Node](https://nodejs.org/en/)
-- Um gerenciador de pacotes, como o [PNPM](https://pnpm.io/), [Npm](https://nodejs.org/en/) ou [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/)
-- [Git](https://git-scm.com/downloads)
-- Editor de código ou IDE, como o [VSCode](https://code.visualstudio.com/Download)
-
-### 🔧 Instalação e execução
-
-1. Clone o repositório
-
-```
-git clone https://github.com/Levieber/track-it.git
+```sh
+pnpm install
+pnpm dev               # http://localhost:3000
 ```
 
-2. Acesse a pasta do projeto
-
+```sh
+pnpm lint              # ESLint
+pnpm type:check        # vue-tsc
+pnpm test:component    # Vitest + Testing Library
+pnpm test:e2e          # Playwright
+pnpm build
 ```
-cd track-it
-```
-
-3. Instale as depedências
-
-```
-// Com o Npm
-npm i // Ou npm install
-
-// Com o pnpm
-pnpm i // Ou pnpm install
-
-// Com o Yarn:
-yarn // Ou yarn install
-```
-
-4. Inicie o servidor de desenvolvimento do projeto
-
-```
-// Com o Npm:
-npm run dev
-
-// Com o pnpm:
-pnpm dev // Ou pnpm run dev
-
-// Com o Yarn:
-yarn dev
-```
-
-Obs: o servidor iniciará na porta 3000 - acesse por: <http://localhost:3000/>
-
-<h3 align="center">Agora, é sua hora de codar 🎮</h3>
